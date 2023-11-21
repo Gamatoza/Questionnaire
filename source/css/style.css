@@ -1,0 +1,24 @@
+textarea:hover, 
+input:hover, 
+textarea:active, 
+input:active, 
+textarea:focus, 
+input:focus,
+button:focus,
+button:active,
+button:hover,
+label:focus,
+.btn:active,
+.btn.active,
+select:focus
+{
+    outline:0px !important;
+    -webkit-appearance:none !important;
+    box-shadow: none !important;
+}
+
+@media (max-width: 755px) {
+  .border-start {
+      border-right: 0px!important;
+  }
+}
