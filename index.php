@@ -1,3 +1,16 @@
+<?php
+global $conn;
+include_once 'connection.php';
+
+$education_options = $conn->query("SELECT * FROM questionnaire.education;");
+$citizenship_options = $conn->query("SELECT * FROM questionnaire.citizenship;");
+$accommodations_options = $conn->query("SELECT * FROM questionnaire.accommodations;");
+$family_options = $conn->query("SELECT * FROM questionnaire.family;");
+$pcskills = $conn->query("SELECT * FROM questionnaire.pcskills;");
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -43,9 +56,17 @@
             <div class="row border-top border-bottom">
                 <div class="col-lg-5 col-md-5 col-sm-12 border-end"><b>Гражданство</b></div>
                 <div class="col-lg-7 col-md-7 col-sm-12">
-                    <div class="input-group">
-                        <input type="text" class="form-control border-0">
-                    </div>
+                    <select class="form-select border-0" aria-label="Small select example">
+                        <option selected></option>
+                        <?php
+                        $i = 0;
+                        while($row = $citizenship_options->fetch()){
+                            $name = $row["Name"];
+                            echo "<option value='$i'>$name</option>";
+                            $i++;
+                        }
+                        ?>
+                    </select>
                 </div>
             </div>
 
@@ -72,9 +93,14 @@
                 <div class="col-lg-7 col-md-7 col-sm-12">
                     <select class="form-select border-0" aria-label="Small select example">
                         <option selected></option>
-                        <option valuse="1">Собственное жилье</option>
-                        <option value="2">Арендуемое жилье</option>
-                        <option value="3">С родственниками</option>
+                        <?php
+                        $i = 0;
+                        while($row = $accommodations_options->fetch()){
+                            $name = $row["Name"];
+                            echo "<option value='$i'>$name</option>";
+                            $i++;
+                        }
+                        ?>
                     </select>
                 </div>
             </div>
@@ -92,8 +118,14 @@
                 <div class="col-lg-7 col-md-7 col-sm-12">
                     <select class="form-select border-0" aria-label="Small select example">
                         <option selected></option>
-                        <option valuse="1">Холост</option>
-                        <option value="2">Женат/Замужем</option>
+                        <?php
+                        $i = 0;
+                        while($row = $family_options->fetch()){
+                            $name = $row["Name"];
+                            echo "<option value='$i'>$name</option>";
+                            $i++;
+                        }
+                        ?>
                     </select>
                 </div>
             </div>
@@ -114,11 +146,14 @@
                 <div class="col-lg-7 col-md-7 col-sm-12">
                     <select class="form-select border-0" aria-label="Small select example">
                             <option selected></option>
-                            <option valuse="1">Высшее</option>
-                            <option value="2">Среднее специальное</option>
-                            <option value="3">Профессионально-техническое</option>
-                            <option value="4">Среднее</option>
-                            <option value="5">Базовое (9 классов)</option>
+                        <?php
+                        $i = 0;
+                        while($row = $education_options->fetch()){
+                            $name = $row["Name"];
+                            echo "<option value='$i'>$name</option>";
+                            $i++;
+                        }
+                        ?>
                         </select>
                 </div>
             </div>
@@ -199,7 +234,7 @@
                 <div class="col-lg-7 col-md-7 col-sm-12">
                     <select class="form-select border-0" aria-label="Small select example">
                         <option selected></option>
-                        <option valuse="1">Да</option>
+                        <option value="1">Да</option>
                         <option value="2">Нет</option>
                     </select>
                 </div>
@@ -210,7 +245,7 @@
                 <div class="col-lg-7 col-md-7 col-sm-12">
                     <select class="form-select border-0" aria-label="Small select example">
                         <option selected></option>
-                        <option valuse="1">Да</option>
+                        <option value="1">Да</option>
                         <option value="2">Нет</option>
                     </select>
                 </div>
@@ -225,9 +260,14 @@
                 <div class="col-lg-7 col-md-7 col-sm-12">
                     <select class="form-select border-0" aria-label="Small select example">
                         <option selected></option>
-                        <option valuse="1">Уверенный пользователь ПК</option>
-                        <option value="2">Средний уровень</option>
-                        <option value="3">Начальный уровень владения ПК</option>
+                        <?php
+                        $i = 0;
+                        while($row = $pcskills->fetch()){
+                            $name = $row["Name"];
+                            echo "<option value='$i'>$name</option>";
+                            $i++;
+                        }
+                        ?>
                     </select>
                 </div>
             </div>
