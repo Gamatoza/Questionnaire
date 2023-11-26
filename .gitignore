@@ -33,3 +33,6 @@ $RECYCLE.BIN/
 *.ori
 *.orig
 *.tmp
+
+node_modules/*
+node_modules
