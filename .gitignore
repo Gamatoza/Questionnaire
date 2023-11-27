@@ -35,4 +35,5 @@ $RECYCLE.BIN/
 *.tmp
 
 #js
+node_modules/*
 node_modules
