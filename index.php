@@ -1,18 +1,20 @@
 <?php
 global $conn;
-include_once 'connection.php';
+require_once 'session.php';
+require_once 'config.php';
 
+//relocate it to another script, just to be sure
 $education_options = $conn->query("SELECT * FROM questionnaire.education;");
 $citizenship_options = $conn->query("SELECT * FROM questionnaire.citizenship;");
 $accommodations_options = $conn->query("SELECT * FROM questionnaire.accommodations;");
 $family_options = $conn->query("SELECT * FROM questionnaire.family;");
 $pcskills = $conn->query("SELECT * FROM questionnaire.pcskills;");
 
-function addoptions($options)
+function addoptions($options): void
 {
     $i = 0;
     while($row = $options->fetch()){
-        $name = $row["Name"];
+        $name = $row["name"];
         echo "<option value='$i'>$name</option>";
         $i++;
     }
@@ -30,7 +32,6 @@ function addoptions($options)
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
           integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="/source/css/style.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <title>Main</title>
 </head>
 
@@ -316,5 +317,6 @@ function addoptions($options)
 </footer>
 
 <script src="/source/js/phoneinput.js"></script>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.2/js/bootstrap.min.js"></script>
 </html>
