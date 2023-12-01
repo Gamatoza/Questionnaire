@@ -66,12 +66,13 @@ html inputs replace or some try to jquery .prop add <?=$class.name(???????)?>
 
 <script>
     jQuery(document).ready(function(){
-        $("input").prop("autocomplete","off")
+        $("input").prop("autocomplete","off"); //TODO: add it in every element manually
 
-        $("#form").submit(function () {
+        //код работает, просто здесь он не нужен, потом использовать его нужно в админке
+        /*$("#form").submit(function () {
             $.ajax({
                 type: "POST",
-                url: '/send.php',
+                url: 'testchecker.php',
                 data: $("#form").serialize(),
                 beforeSend: function () {
                     // Вывод текста в процессе отправки
@@ -91,7 +92,7 @@ html inputs replace or some try to jquery .prop add <?=$class.name(???????)?>
                 }
             });
             return false;
-        });
+        });*/
     });
 </script>
 
