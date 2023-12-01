@@ -21,7 +21,7 @@ $users = $conn->query("SELECT * FROM questionnaire.users;");
 <div class="container">
     <div class="wrapper">
         <div class="title"><span>Login Form</span></div>
-        <form id="form" method="post" action="loginproceed.php" name="sign-form">
+        <form id="form" method="post" action="loginproceed.php" name="test-form">
             <div class="row">
                 <i class="fas fa-user"></i>
                 <input type="text" name="username" placeholder="Email or Phone" required>
