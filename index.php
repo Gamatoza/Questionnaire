@@ -309,7 +309,7 @@ html inputs replace or some try to jquery .prop add <?=$class.name(???????)?>
             <div class="row border-top border-bottom">
                 <div class="col-lg-5 col-md-5 col-sm-12 border-end"><b>Навыки владения компьютером </b>(необходимое выбрать)<br></div>
                 <div class="col-lg-7 col-md-7 col-sm-12">
-                    <select class="form-select border-0" aria-label="Small select example" required>
+                    <select class="form-select border-0" name="pc_skills_id" aria-label="Small select example" required>
                         <option selected></option>
                         <?php addoptions($pcskills); ?>
                     </select>
@@ -320,7 +320,7 @@ html inputs replace or some try to jquery .prop add <?=$class.name(???????)?>
                 <div class="col-lg-5 col-md-5 col-sm-12 border-end"><b>Знание иностранных языков, степень владения</b></div>
                 <div class="col-lg-7 col-md-7 col-sm-12">
                     <div class="input-group">
-                        <input type="text" class="form-control border-0" required>
+                        <input type="text" name="languages" class="form-control border-0" required>
                     </div>
                 </div>
             </div>
@@ -331,7 +331,7 @@ html inputs replace or some try to jquery .prop add <?=$class.name(???????)?>
                 </div>
                 <div class="col-lg-7 col-md-7 col-sm-12">
                     <div class="input-group">
-                        <input type="text" class="form-control border-0" required>
+                        <input type="text" name="hobbies" class="form-control border-0" required>
                     </div>
                 </div>
             </div>
@@ -341,7 +341,7 @@ html inputs replace or some try to jquery .prop add <?=$class.name(???????)?>
                     качества и др.)</div>
                 <div class="col-lg-7 col-md-7 col-sm-12">
                     <div class="input-group">
-                        <input type="text" class="form-control border-0" required>
+                        <input type="text" name="advantages" class="form-control border-0" required>
                     </div>
                 </div>
             </div>
