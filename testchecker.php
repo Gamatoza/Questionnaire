@@ -31,32 +31,6 @@ function bindMultiplyValue_FromPOST(PDO $connection, $sql_query): false|PDOState
     return $stmt;
 }
 
-$_POST = array (
-    'fio' => 'qwe',
-    'birthday' => '2023-12-01',
-    'citizenship_id' => '1',
-    'birthplace' => 'qwe',
-    'address' => 'qwe',
-    'accommodations_id' => '1',
-    'phone' => 'qwe',
-    'family_id' => '1',
-    'family_structure' => 'qwe',
-    'education_id' => '1',
-    'education_info' => 'qwe',
-    'organization' => 'qwe',
-    'post' => 'qwe',
-    'admission_date' => '2024-01-03',
-    'dismissal_reason' => 'qwe',
-    'applypost' => 'qwe',
-    'isagree_position' => 'True',
-    'isagree_removal' => 'True',
-    'pc_skills_id' => '1',
-    'languages' => 'qwe',
-    'hobbies' => 'qwe',
-    'advantages' => 'qwe',
-    'submit-btn' => '',
-);
-
 if (isset($_POST['submit-btn']))
 {
     /*$person_query = "insert into person (fio, birthday, citizenship_id, birthplace, address, accommodations_id, phone, family_id,
