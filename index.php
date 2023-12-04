@@ -12,7 +12,7 @@ $pcskills = $conn->query("SELECT * FROM questionnaire.pcskills;");
 
 function addoptions($options): void
 {
-    $i = 0;
+    $i = 1;
     while($row = $options->fetch()){
         $name = $row["name"];
         echo "<option value='$i'>$name</option>";
@@ -103,7 +103,7 @@ html inputs replace or some try to jquery .prop add <?=$class.name(???????)?>
 </header>
 
 <body>
-    <form id="form" method="post" action="testchecker.php" name="sign-form">
+    <form id="form" method="post" action="test.php" name="sign-form">
         <div class="container-fluid text-left">
             <div class="row">
                 <div class="col-md-12 text-center pt-3 pb-3"><b>ЛИЧНЫЕ ДАННЫЕ</b></div>

@@ -11,7 +11,7 @@ function bindMultiplyValue(PDO $connection, $sql_query, array $params): false|PD
 
     $stmt = $connection->prepare($sql_query);
     preg_match_all($regex,$sql_query,$matches);
-    for ($i = 0; $i < count($matches); $i++)
+    for ($i = 0; $i < count($matches[0]); $i++)
     {
         $stmt->bindValue($matches[0][$i],$params[$i]);
     }
@@ -31,9 +31,35 @@ function bindMultiplyValue_FromPOST(PDO $connection, $sql_query): false|PDOState
     return $stmt;
 }
 
+$_POST = array (
+    'fio' => 'qwe',
+    'birthday' => '2023-12-01',
+    'citizenship_id' => '1',
+    'birthplace' => 'qwe',
+    'address' => 'qwe',
+    'accommodations_id' => '1',
+    'phone' => 'qwe',
+    'family_id' => '1',
+    'family_structure' => 'qwe',
+    'education_id' => '1',
+    'education_info' => 'qwe',
+    'organization' => 'qwe',
+    'post' => 'qwe',
+    'admission_date' => '2024-01-03',
+    'dismissal_reason' => 'qwe',
+    'applypost' => 'qwe',
+    'isagree_position' => 'True',
+    'isagree_removal' => 'True',
+    'pc_skills_id' => '1',
+    'languages' => 'qwe',
+    'hobbies' => 'qwe',
+    'advantages' => 'qwe',
+    'submit-btn' => '',
+);
+
 if (isset($_POST['submit-btn']))
 {
-    $person_query = "insert into person (fio, birthday, citizenship_id, birthplace, address, accommodations_id, phone, family_id,
+    /*$person_query = "insert into person (fio, birthday, citizenship_id, birthplace, address, accommodations_id, phone, family_id,
                     family_structure, education_id, education_info) 
                     values (:fio, :birthday, :citizenship_id, :birthplace, :address, :accommodations_id, :phone, :family_id,
                     :family_structure, :education_id, :education_info);";
@@ -42,7 +68,6 @@ if (isset($_POST['submit-btn']))
     $stmt = bindMultiplyValue_FromPOST($conn,$person_query);
     $stmt->execute();
     $person_id = $conn->lastInsertId();
-
     $skills_query = "insert into skills (pc_skills_id, languages, hobbies, advantages)
                     values (:pc_skills_id, :languages, :hobbies, :advantages);";
 
@@ -58,12 +83,14 @@ if (isset($_POST['submit-btn']))
 
     $stmt = bindMultiplyValue_FromPOST($conn,$workorg_query);
     $stmt->execute();
-    $workorg_id = $conn->lastInsertId();
-
+    $workorg_id = $conn->lastInsertId();*/
+    $person_id = 1;
+    $skills_id = 1;
+    $workorg_id = 1;
     $main_query = "insert into main (person_id, skills_id, workorg_id, fillingdate)
-                  values (:person_id, :skills_id, :workorg_id, :fillingdate);";
+                  values (:person_id, :skills_id, :workorg_id, now());";
 
-    $stmt = bindMultiplyValue($conn,$main_query,[$person_id,$skills_id,$workorg_id,"now()"]);
+    $stmt = bindMultiplyValue($conn,$main_query,[$person_id,$skills_id,$workorg_id]);
     $stmt->execute();
 
     echo "Success";
