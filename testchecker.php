@@ -3,9 +3,40 @@ global $conn;
 require_once 'session.php';
 require_once 'config.php';
 if (isset($_POST['submit-btn']))
-    echo 'cool';
+{
+    $personquery = "insert into person (fio, birthday, citizenship_id, birthplace, address, accommodations_id, phone, family_id,
+                    family_structure, education_id, education_info) 
+                    values (:fio, :birthday, :citizenship_id, :birthplace, :address, :accommodations_id, :phone, :family_id,
+                    :family_structure, :education_id, :education_info);";
+    $stmt = $conn->prepare($personquery);
 
-print_r($_POST); //show all massive
+    //TODO: combine it in an array, mb regex with tablename_param and remove tablename_
+    $stmt->bindValue("fio");
+    $stmt->bindValue("birthday");
+    $stmt->bindValue("citizenship_id");
+    $stmt->bindValue("birthplace");
+    $stmt->bindValue("address");
+    $stmt->bindValue("accommodations_id");
+    $stmt->bindValue("phone");
+    $stmt->bindValue("family_id");
+    $stmt->bindValue("family_structure");
+    $stmt->bindValue("education_id");
+    $stmt->bindValue("education_info");
+
+    $skillsquery = "insert into skills (pc_skills_id, languages, hobbies, advantages)
+                    values (:pc_skills_id, :languages, :hobbies, :advantages);";
+    $workorgquery = "insert into workorg (organization, post, admission_date, dismissal_date, dismissal_reason, applypost,
+                     isagree_position, isagree_removal)
+                     values (:organization, :post, :admission_date, :dismissal_date, :dismissal_reason, :applypost,
+                     :isagree_position, :isagree_removal);";
+
+
+
+    $mainquery = "insert into main (person_id, skills_id, workorg_id, fillingdate)
+                  values (:person_id, :skills_id, :workorg_id, :fillingdate);";
+}
+
+//print_r($_POST); //show all massive
 /*
 all data's
 
