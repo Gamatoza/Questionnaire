@@ -130,12 +130,19 @@ html inputs replace or some try to jquery .prop add <?=$class.name(???????)?>
                 <div class="col-lg-5 col-md-5 col-sm-12 border-end"><b>Гражданство</b></div>
                 <div class="col-lg-7 col-md-7 col-sm-12">
                     <select class="form-select border-0" name="citizenship_id" aria-label="Small select example" required>
-                        <option selected></option>
-                        <?php addoptions($citizenship_options); ?>
-
+                    <option selected></option>
+                    <?php addoptions($citizenship_options); ?> <!--TODO: Check how it works with AJAX-->
                     </select>
                 </div>
             </div>
+            <!--
+                    <p>
+                    <input name="citizenship_id" list="character">
+                    <datalist aria-label="Small select example" id="character">
+                        <option selected></option>
+                        <?php //addoptions($citizenship_options); ?>
+                    </datalist>
+                    </p> TODO: Check how it works with AJAX-->
 
             <div class="row border-top border-bottom">
                 <div class="col-lg-5 col-md-5 col-sm-12 border-end"><b>Место рождения</b></div>
@@ -209,7 +216,7 @@ html inputs replace or some try to jquery .prop add <?=$class.name(???????)?>
 
             <div class="row border-top border-bottom">
                 <div class="col-lg-5 col-md-5 col-sm-12 border-end"><b>Окончил </b>(когда, что, какой факультет) </div>
-                <div class="col-lg-2 col-md-3 col-sm-3">
+                <div class="col-lg-2 col-md-3 col-sm-12">
                     <div class="input-group">
                         <input type="text" name="education_info" class="form-control border-0" required>
                     </div>

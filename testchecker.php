@@ -2,38 +2,74 @@
 global $conn;
 require_once 'session.php';
 require_once 'config.php';
+
+
+function bindMultiplyValue(PDO $connection, $sql_query, array $params): false|PDOStatement
+{
+    $matches = [];
+    $regex = "\"(?<=:)\w*\"";
+
+    $stmt = $connection->prepare($sql_query);
+    preg_match_all($regex,$sql_query,$matches);
+    for ($i = 0; $i < count($matches); $i++)
+    {
+        $stmt->bindValue($matches[0][$i],$params[$i]);
+    }
+    return $stmt;
+}
+function bindMultiplyValue_FromPOST(PDO $connection, $sql_query): false|PDOStatement
+{
+    $matches = [];
+    $regex = "\"(?<=:)\w*\"";
+
+    $stmt = $connection->prepare($sql_query);
+    preg_match_all($regex,$sql_query,$matches);
+    foreach ($matches[0] as $value)
+    {
+        $stmt->bindValue($value,$_POST[$value]);
+    }
+    return $stmt;
+}
+
 if (isset($_POST['submit-btn']))
 {
-    $personquery = "insert into person (fio, birthday, citizenship_id, birthplace, address, accommodations_id, phone, family_id,
+    $person_query = "insert into person (fio, birthday, citizenship_id, birthplace, address, accommodations_id, phone, family_id,
                     family_structure, education_id, education_info) 
                     values (:fio, :birthday, :citizenship_id, :birthplace, :address, :accommodations_id, :phone, :family_id,
                     :family_structure, :education_id, :education_info);";
-    $stmt = $conn->prepare($personquery);
 
     //TODO: combine it in an array, mb regex with tablename_param and remove tablename_
-    $stmt->bindValue("fio");
-    $stmt->bindValue("birthday");
-    $stmt->bindValue("citizenship_id");
-    $stmt->bindValue("birthplace");
-    $stmt->bindValue("address");
-    $stmt->bindValue("accommodations_id");
-    $stmt->bindValue("phone");
-    $stmt->bindValue("family_id");
-    $stmt->bindValue("family_structure");
-    $stmt->bindValue("education_id");
-    $stmt->bindValue("education_info");
+    $stmt = bindMultiplyValue_FromPOST($conn,$person_query);
+    $stmt->execute();
+    $person_id = $conn->lastInsertId();
 
-    $skillsquery = "insert into skills (pc_skills_id, languages, hobbies, advantages)
+    $skills_query = "insert into skills (pc_skills_id, languages, hobbies, advantages)
                     values (:pc_skills_id, :languages, :hobbies, :advantages);";
-    $workorgquery = "insert into workorg (organization, post, admission_date, dismissal_date, dismissal_reason, applypost,
+
+    $stmt = bindMultiplyValue_FromPOST($conn,$skills_query);
+    $stmt->execute();
+    $skills_id = $conn->lastInsertId();
+
+
+    $workorg_query = "insert into workorg (organization, post, admission_date, dismissal_date, dismissal_reason, applypost,
                      isagree_position, isagree_removal)
                      values (:organization, :post, :admission_date, :dismissal_date, :dismissal_reason, :applypost,
                      :isagree_position, :isagree_removal);";
 
+    $stmt = bindMultiplyValue_FromPOST($conn,$workorg_query);
+    $stmt->execute();
+    $workorg_id = $conn->lastInsertId();
 
-
-    $mainquery = "insert into main (person_id, skills_id, workorg_id, fillingdate)
+    $main_query = "insert into main (person_id, skills_id, workorg_id, fillingdate)
                   values (:person_id, :skills_id, :workorg_id, :fillingdate);";
+
+    $stmt = bindMultiplyValue($conn,$main_query,[$person_id,$skills_id,$workorg_id,"now()"]);
+    $stmt->execute();
+
+    echo "Success";
+
+    //TODO: Insert some page with Thank you for do this question, idk
+
 }
 
 //print_r($_POST); //show all massive
