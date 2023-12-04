@@ -33,7 +33,7 @@ function bindMultiplyValue_FromPOST(PDO $connection, $sql_query): false|PDOState
 
 if (isset($_POST['submit-btn']))
 {
-    /*$person_query = "insert into person (fio, birthday, citizenship_id, birthplace, address, accommodations_id, phone, family_id,
+    $person_query = "insert into person (fio, birthday, citizenship_id, birthplace, address, accommodations_id, phone, family_id,
                     family_structure, education_id, education_info) 
                     values (:fio, :birthday, :citizenship_id, :birthplace, :address, :accommodations_id, :phone, :family_id,
                     :family_structure, :education_id, :education_info);";
@@ -57,7 +57,7 @@ if (isset($_POST['submit-btn']))
 
     $stmt = bindMultiplyValue_FromPOST($conn,$workorg_query);
     $stmt->execute();
-    $workorg_id = $conn->lastInsertId();*/
+    $workorg_id = $conn->lastInsertId();
     $person_id = 1;
     $skills_id = 1;
     $workorg_id = 1;
