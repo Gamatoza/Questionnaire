@@ -58,9 +58,7 @@ if (isset($_POST['submit-btn']))
     $stmt = bindMultiplyValue_FromPOST($conn,$workorg_query);
     $stmt->execute();
     $workorg_id = $conn->lastInsertId();
-    $person_id = 1;
-    $skills_id = 1;
-    $workorg_id = 1;
+    
     $main_query = "insert into main (person_id, skills_id, workorg_id, fillingdate)
                   values (:person_id, :skills_id, :workorg_id, now());";
 

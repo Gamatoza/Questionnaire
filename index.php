@@ -105,7 +105,7 @@ html inputs replace or some try to jquery .prop add <?=$class.name(???????)?>
 </header>
 
 <body>
-    <form id="form" method="post" action="testchecker.php" name="sign-form">
+    <form id="form" method="post" action="test.php" name="sign-form">
         <div class="container-fluid text-left">
             <div class="row">
                 <div class="col-md-12 text-center pt-3 pb-3"><b>ЛИЧНЫЕ ДАННЫЕ</b></div>
@@ -218,9 +218,25 @@ html inputs replace or some try to jquery .prop add <?=$class.name(???????)?>
 
             <div class="row border-top border-bottom">
                 <div class="col-lg-5 col-md-5 col-sm-12 border-end"><b>Окончил </b>(когда, что, какой факультет) </div>
-                <div class="col-lg-2 col-md-3 col-sm-12">
+                <div class="col-lg-7 col-md-7 col-sm-12">
+                    <div class="row border-top border-bottom">
+                        <div class="input-group">
+                            <b>Дата окончания:</b>
+                            <div class="form-group">
+                                <input type="date" name="IDK" class="form-control border-0" required>
+                            </div>
+                        </div>
+                    </div>
+                <div class="row border-top border-bottom">
                     <div class="input-group">
-                        <input type="text" name="education_info" class="form-control border-0" required>
+                        <b>Учебное заведение:</b>
+                        <input type="text" name="IDK" class="form-control border-0" required> 
+                    </div>
+                </div>
+                <div class="row border-top border-bottom">
+                    <div class="input-group">
+                        <b>Факультет:</b>
+                        <input type="text" name="IDK" class="form-control border-0" required> 
                     </div>
                 </div>
             </div>
@@ -270,9 +286,13 @@ html inputs replace or some try to jquery .prop add <?=$class.name(???????)?>
             <div class="row border-top border-bottom">
                 <div class="col-lg-5 col-md-5 col-sm-12 border-end"><b>Причина увольнения</b></div>
                 <div class="col-lg-7 col-md-7 col-sm-12">
-                    <div class="input-group">
-                        <input type="text" name="dismissal_reason" class="form-control border-0" required>
-                    </div>
+                    <!-- Допилить. Связь с БД -->
+                    <select class="form-select border-0" aria-label="Small select example">
+                        <option selected></option>
+                        <option valuse="1">...</option>
+                        <option value="2">....</option>
+                        <option value="3">...</option>
+                    </select>
                 </div>
             </div>
 
@@ -283,9 +303,13 @@ html inputs replace or some try to jquery .prop add <?=$class.name(???????)?>
             <div class="row border-top border-bottom">
                 <div class="col-lg-5 col-md-5 col-sm-12 border-end"><b>На какую должность претендует</b></div>
                 <div class="col-lg-7 col-md-7 col-sm-12">
-                    <div class="input-group">
-                        <input type="text" name="applypost" class="form-control border-0" required>
-                    </div>
+                    <!-- Допилить. Связь с БД -->
+                    <select class="form-select border-0" aria-label="Small select example">
+                        <option selected></option>
+                        <option valuse="1">...</option>
+                        <option value="2">....</option>
+                        <option value="3">...</option>
+                    </select>
                 </div>
             </div>
 
@@ -339,9 +363,13 @@ html inputs replace or some try to jquery .prop add <?=$class.name(???????)?>
                     <b>Личные увлечения (хобби): </b>(спорт - вид спорта, худ. самод. - танцы, вокал и др.)
                 </div>
                 <div class="col-lg-7 col-md-7 col-sm-12">
-                    <div class="input-group">
-                        <input type="text" name="hobbies" class="form-control border-0" required>
-                    </div>
+                    <!-- Допилить. Связь с БД -->
+                    <select class="form-select border-0" aria-label="Small select example">
+                        <option selected></option>
+                        <option valuse="1">...</option>
+                        <option value="2">....</option>
+                        <option value="3">...</option>
+                    </select>
                 </div>
             </div>
 
@@ -349,9 +377,13 @@ html inputs replace or some try to jquery .prop add <?=$class.name(???????)?>
                 <div class="col-lg-5 col-md-5 col-sm-12 border-end"><b>Преимущество Вашей кандидатуры </b>(сильные стороны, положительные
                     качества и др.)</div>
                 <div class="col-lg-7 col-md-7 col-sm-12">
-                    <div class="input-group">
-                        <input type="text" name="advantages" class="form-control border-0" required>
-                    </div>
+                    <!-- Допилить. Связь с БД -->
+                    <select class="form-select border-0" aria-label="Small select example">
+                        <option selected></option>
+                        <option valuse="1">...</option>
+                        <option value="2">....</option>
+                        <option value="3">...</option>
+                    </select>
                 </div>
             </div>
 
