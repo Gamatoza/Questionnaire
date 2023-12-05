@@ -3,6 +3,8 @@ global $conn;
 require_once 'session.php';
 require_once 'config.php';
 
+//start
+
 //relocate it to another script, just to be sure
 $education_options = $conn->query("SELECT * FROM questionnaire.education;");
 $citizenship_options = $conn->query("SELECT * FROM questionnaire.citizenship;");
