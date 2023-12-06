@@ -10,8 +10,9 @@ $education_options = $conn->query("SELECT * FROM questionnaire.education;");
 $citizenship_options = $conn->query("SELECT * FROM questionnaire.citizenship;");
 $accommodations_options = $conn->query("SELECT * FROM questionnaire.accommodations;");
 $family_options = $conn->query("SELECT * FROM questionnaire.family;");
-$pcskills = $conn->query("SELECT * FROM questionnaire.pcskills;");
-
+$pcskills_options = $conn->query("SELECT * FROM questionnaire.pcskills;");
+$applypost_options = $conn->query("SELECT * FROM questionnaire.applypost;");
+$dismossal_reason_options = $conn->query("SELECT * FROM questionnaire.dismissal_reason;");
 function addoptions($options): void
 {
     $i = 1;
@@ -223,20 +224,20 @@ html inputs replace or some try to jquery .prop add <?=$class.name(???????)?>
                         <div class="input-group">
                             <b>Дата окончания:</b>
                             <div class="form-group">
-                                <input type="date" name="IDK" class="form-control border-0" required>
+                                <input type="date" name="education_date" class="form-control border-0" required>
                             </div>
                         </div>
                     </div>
                 <div class="row border-top border-bottom">
                     <div class="input-group">
                         <b>Учебное заведение:</b>
-                        <input type="text" name="IDK" class="form-control border-0" required> 
+                        <input type="text" name="education_facility" class="form-control border-0" required>
                     </div>
                 </div>
                 <div class="row border-top border-bottom">
                     <div class="input-group">
                         <b>Факультет:</b>
-                        <input type="text" name="IDK" class="form-control border-0" required> 
+                        <input type="text" name="education_faculty" class="form-control border-0" required>
                     </div>
                 </div>
             </div>
@@ -287,11 +288,10 @@ html inputs replace or some try to jquery .prop add <?=$class.name(???????)?>
                 <div class="col-lg-5 col-md-5 col-sm-12 border-end"><b>Причина увольнения</b></div>
                 <div class="col-lg-7 col-md-7 col-sm-12">
                     <!-- Допилить. Связь с БД -->
-                    <select class="form-select border-0" aria-label="Small select example">
+                    <select class="form-select border-0" name="dismossal_reason_id" aria-label="Small select example">
                         <option selected></option>
-                        <option valuse="1">...</option>
-                        <option value="2">....</option>
-                        <option value="3">...</option>
+                        <?php addoptions($dismossal_reason_options); ?>
+
                     </select>
                 </div>
             </div>
@@ -304,11 +304,9 @@ html inputs replace or some try to jquery .prop add <?=$class.name(???????)?>
                 <div class="col-lg-5 col-md-5 col-sm-12 border-end"><b>На какую должность претендует</b></div>
                 <div class="col-lg-7 col-md-7 col-sm-12">
                     <!-- Допилить. Связь с БД -->
-                    <select class="form-select border-0" aria-label="Small select example">
+                    <select class="form-select border-0" name="applypost_id" aria-label="Small select example">
                         <option selected></option>
-                        <option valuse="1">...</option>
-                        <option value="2">....</option>
-                        <option value="3">...</option>
+                        <?php addoptions($applypost_options); ?>
                     </select>
                 </div>
             </div>
@@ -344,7 +342,7 @@ html inputs replace or some try to jquery .prop add <?=$class.name(???????)?>
                 <div class="col-lg-7 col-md-7 col-sm-12">
                     <select class="form-select border-0" name="pc_skills_id" aria-label="Small select example" required>
                         <option selected></option>
-                        <?php addoptions($pcskills); ?>
+                        <?php addoptions($pcskills_options); ?>
                     </select>
                 </div>
             </div>
@@ -364,12 +362,9 @@ html inputs replace or some try to jquery .prop add <?=$class.name(???????)?>
                 </div>
                 <div class="col-lg-7 col-md-7 col-sm-12">
                     <!-- Допилить. Связь с БД -->
-                    <select class="form-select border-0" aria-label="Small select example">
-                        <option selected></option>
-                        <option valuse="1">...</option>
-                        <option value="2">....</option>
-                        <option value="3">...</option>
-                    </select>
+                    <div class="input-group">
+                        <input type="text" name="hobbies" class="form-control border-0" required>
+                    </div>
                 </div>
             </div>
 
@@ -378,12 +373,9 @@ html inputs replace or some try to jquery .prop add <?=$class.name(???????)?>
                     качества и др.)</div>
                 <div class="col-lg-7 col-md-7 col-sm-12">
                     <!-- Допилить. Связь с БД -->
-                    <select class="form-select border-0" aria-label="Small select example">
-                        <option selected></option>
-                        <option valuse="1">...</option>
-                        <option value="2">....</option>
-                        <option value="3">...</option>
-                    </select>
+                    <div class="input-group">
+                        <input type="text" name="advantages" class="form-control border-0" required>
+                    </div>
                 </div>
             </div>
 
@@ -399,7 +391,7 @@ html inputs replace or some try to jquery .prop add <?=$class.name(???????)?>
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-4">
                             <div class="form-group mt-3" >
-                                <pre type="date" class="form-control border-0"><?=date("d-m-Y H:i:s");?></pre> <!--TODO: менять время по секундам js(?) -->
+                                <pre type="date" class="form-control border-0"><?=date("d-m-Y");//H:i:s?></pre>  <!--TODO: менять время по секундам js(?) -->
                             </div>
                         </div>
                     </div>
