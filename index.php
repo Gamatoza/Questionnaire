@@ -1,7 +1,7 @@
 <?php
+require_once('module/session.php');
 global $conn;
-require_once 'session.php';
-require_once 'config.php';
+require_once('module/config.php');
 
 //start
 

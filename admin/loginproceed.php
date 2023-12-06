@@ -1,6 +1,7 @@
 <?php
+require_once('../module/config.php');
 global $conn;
-require_once ('config.php');
+require_once('../module/config.php');
 
 
 if ($_POST['username'] or $_POST['password']) {
@@ -18,7 +19,7 @@ if ($_POST['username'] or $_POST['password']) {
     } else {
         if ($result['password'] == $password) { //password_verify($password, $result['password']) password_hash("admin",PASSWORD_DEFAULT); TODO: хешировать пароли
             $_SESSION['uid'] = $result['id'];
-            header("location: admin_panel.php");
+            header("location: index.php");
         } else {
             $_SESSION['message'] = "Неправильный логин или пароль";
             $_SESSION['username'] = FALSE;

@@ -1,7 +1,7 @@
 <?php
-require_once 'session.php';
+require_once('../module/config.php');
 global $conn;
-require_once 'config.php';
+require_once('../module/config.php');
 
 
 $users = $conn->query("SELECT * FROM questionnaire.users;");
@@ -13,7 +13,7 @@ $users = $conn->query("SELECT * FROM questionnaire.users;");
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Form | CodingLab</title>
-    <link rel="stylesheet" href="source/css/loginstyle.css">
+    <link rel="stylesheet" href="../source/css/loginstyle.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
 </head>
 
