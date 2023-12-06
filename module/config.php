@@ -1,5 +1,4 @@
 <?php
-header("location: ..\index.php");
 require_once 'session.php';
 
 if(!isset($conn)) {

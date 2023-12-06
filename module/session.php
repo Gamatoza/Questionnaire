@@ -1,5 +1,4 @@
 <?php
-header("location: test.php");
 
 if(!isset($_SESSION))
 {

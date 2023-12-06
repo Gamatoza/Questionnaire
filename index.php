@@ -59,15 +59,28 @@ html inputs replace or some try to jquery .prop add <?=$class.name(???????)?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
           integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" href="/source/css/style.css">
-    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <link rel="stylesheet" href="source/css/style.css">
+    <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
     <title>Main</title>
 </head>
 
 <script>
     jQuery(document).ready(function () {
         $("input").prop("autocomplete", "off"); //TODO: add it in every element manually
+        $("input, select").change(function ()
+        {
+            sessionStorage.setItem(this.name,this.value);
+        });
     });
+
+    document.addEventListener("DOMContentLoaded", function() { //analog $.ready
+        document.querySelectorAll('select, input').forEach(function(e) {
+             if(e.value === '') e.value = window.sessionStorage.getItem(e.name, e.value);
+        })
+
+    });
+
+
 </script>
 
 <header>
@@ -164,7 +177,8 @@ html inputs replace or some try to jquery .prop add <?=$class.name(???????)?>
             <div class="col-lg-7 col-md-7 col-sm-12">
                 <select class="form-select border-0" name="family_id" aria-label="Small select example" required>
                     <option selected></option>
-                    <?php addoptions($family_options); ?>
+                    <?php addoptions($family_options);?>
+                    <option value="-1">Другое: </option>
                 </select>
             </div>
         </div>
@@ -254,32 +268,9 @@ html inputs replace or some try to jquery .prop add <?=$class.name(???????)?>
                     </div>
                 </div>
             </div>
-
-            <script>
-                var isdisclicked = false;
-
-                var buf = [];
-                function disclick(elem) {
-                    if (!isdisclicked) {
-                        $('#dismisdiv').removeAttr('hidden');
-                        elem.value = 'Убрать дату увольнения';
-                        $("#dismissal_date").val(buf[0]);
-                        $("#dismossal_reason_id").val(buf[1]);
-                    } else {
-                        $('#dismisdiv').attr('hidden', true);
-                        elem.value = 'Добавить дату увольнения';
-                        buf[0] = $("#dismissal_date").val();
-                        buf[1] = $("#dismossal_reason_id").val();
-                        $("#dismissal_date").val('');
-                        $("#dismossal_reason_id").val('');
-
-                    }
-                    isdisclicked = !isdisclicked;
-                }
-            </script>
             <!--TODO: Добавить сюда добавление ещё одной даты ака дата увольнения -->
             <input type="button" class="button" id="dismisbtn" value="Добавить дату увольнения"
-                   onclick="disclick(this)">
+                   onclick="disClick(this)">
             <!--Выводить следующий блок только в случае если дополнительная дата с увольнением есть-->
             <div id="dismisdiv" hidden>
                 <div class="row border-top border-bottom">
@@ -417,7 +408,7 @@ html inputs replace or some try to jquery .prop add <?=$class.name(???????)?>
                 <div class="col-lg-6 col-md-6 col-sm-6 text-right">
                     <div class="col-12">
                         <div class="text-end">
-                            <button class="btn btn-primary mt-3" name="submit-btn" type="submit">Отправить тест</button>
+                            <button class="btn btn-primary mt-3" name="submit-btn" type="submit" >Отправить тест</button>
                         </div>
                     </div>
                 </div>
@@ -431,6 +422,7 @@ html inputs replace or some try to jquery .prop add <?=$class.name(???????)?>
     <p class="text-center text-body-secondary">© 2023 Company, Inc</p>
 </footer>
 
-<script src="/source/js/phoneinput.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.2/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="source/js/elements_scripts.js"></script>
+<!--<script type="text/javascript" src="source/js/phone_input.js"></script>-->
+<script type="text/javascript" src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 </html>
