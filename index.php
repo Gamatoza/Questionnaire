@@ -21,33 +21,6 @@ function addoptions($options): void
         echo "<option value='$id'>$name</option>";
     }
 }
-
-//TODO use classes PHP for saving values before refresh
-
-/*example
-
-html
-<form id="formId" action="" method="post">
-    <input type="hidden" id="hiddenAction" name="hiddenAction" value="" />
-    <input type="text" id="firstName" name="firstName" value="" />
-</form>
-
-jquery
-$("#formId #hiddenAction").val("refreshed") ;
-$("#formId").submit() ;
-
-php
-$firstName = "";
-if (isset($_POST["hiddenAction"]) && $_POST["hiddenAction"] == "refreshed") { //When the hidden action is set to "refreshed" then we know that this is coming from refreshing the page
-    $firstName = isset($_POST["firstName"]) ? $_POST["firstName"] : ""; //Of course you have to escape the string and strip it from any pure html tags
-}
-
-html inputs replace or some try to jquery .prop add <?=$class.name(???????)?>
-<input type="text" id="firstName" name="firstName" value="<?php echo $firstName ?>" />
-
- */
-
-
 ?>
 
 <!-- TODO: Add AJAX modal after push button with "thank you" or smth" -->
@@ -57,31 +30,14 @@ html inputs replace or some try to jquery .prop add <?=$class.name(???????)?>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css"
           integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="source/css/style.css">
     <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
-    <title>Main</title>
+    <script type="text/javascript" src="source/js/elements_scripts.js"></script>
+    <title>Опросник</title>
+    <script type="text/javascript" src="source/js/main_script.js"></script>
 </head>
-
-<script>
-    jQuery(document).ready(function () {
-        $("input").prop("autocomplete", "off"); //TODO: add it in every element manually
-        $("input, select").change(function ()
-        {
-            sessionStorage.setItem(this.name,this.value);
-        });
-    });
-
-    document.addEventListener("DOMContentLoaded", function() { //analog $.ready
-        document.querySelectorAll('select, input').forEach(function(e) {
-             if(e.value === '') e.value = window.sessionStorage.getItem(e.name, e.value);
-        })
-
-    });
-
-
-</script>
 
 <header>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -269,10 +225,10 @@ html inputs replace or some try to jquery .prop add <?=$class.name(???????)?>
                 </div>
             </div>
             <!--TODO: Добавить сюда добавление ещё одной даты ака дата увольнения -->
-            <input type="button" class="button" id="dismisbtn" value="Добавить дату увольнения"
-                   onclick="disClick(this)">
+            <input type="button" class="button" id="dismissal_btn" value="Добавить дату увольнения"
+                   onclick="disClick();">
             <!--Выводить следующий блок только в случае если дополнительная дата с увольнением есть-->
-            <div id="dismisdiv" hidden>
+            <div id="dismissal_div" hidden>
                 <div class="row border-top border-bottom">
                     <div class="col-lg-5 col-md-5 col-sm-12 border-end"><b>Дата увольнения</b></div>
                     <div class="col-lg-2 col-md-3 col-sm-3">
@@ -284,7 +240,7 @@ html inputs replace or some try to jquery .prop add <?=$class.name(???????)?>
                 <div class="row border-top border-bottom">
                     <div class="col-lg-5 col-md-5 col-sm-12 border-end"><b>Причина увольнения</b></div>
                     <div class="col-lg-7 col-md-7 col-sm-12">
-                        <select class="form-select border-0" id="dismossal_reason_id" name="dismossal_reason_id" aria-label="Small select example">
+                        <select class="form-select border-0" id="dismissal_reason_id" name="dismissal_reason_id" aria-label="Small select example">
                             <option selected></option>
                             <?php addoptions($dismossal_reason_options); ?>
                         </select>
@@ -422,7 +378,6 @@ html inputs replace or some try to jquery .prop add <?=$class.name(???????)?>
     <p class="text-center text-body-secondary">© 2023 Company, Inc</p>
 </footer>
 
-<script type="text/javascript" src="source/js/elements_scripts.js"></script>
 <!--<script type="text/javascript" src="source/js/phone_input.js"></script>-->
 <script type="text/javascript" src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 </html>
