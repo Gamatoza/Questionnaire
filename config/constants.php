@@ -13,6 +13,8 @@ class AppConfig
     public array $jsPath = [];
     public array $imagesPath = [];
     public array $nodePaths = [];
+
+    //
     public PDO $connection;
     private static AppConfig $instance;
 
