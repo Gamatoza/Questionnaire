@@ -1,28 +1,7 @@
 <?php
-define('ROOT_PATH',$_SERVER['DOCUMENT_ROOT'].'/Questionnaire');
-require_once(ROOT_PATH.'/module/config.php');
-global $conn;
-require_once(ROOT_PATH.'/module/config.php');
-
-//start
-
-//relocate it to another script, just to be sure
-$education_options = $conn->query("SELECT * FROM questionnaire.education;");
-$citizenship_options = $conn->query("SELECT * FROM questionnaire.citizenship;");
-$accommodations_options = $conn->query("SELECT * FROM questionnaire.accommodations;");
-$family_options = $conn->query("SELECT * FROM questionnaire.family;");
-$pcskills_options = $conn->query("SELECT * FROM questionnaire.pcskills;");
-$applypost_options = $conn->query("SELECT * FROM questionnaire.applypost;");
-$dismossal_reason_options = $conn->query("SELECT * FROM questionnaire.dismissal_reason;");
-function addoptions($options): void
-{
-    while ($row = $options->fetch()) {
-        $name = $row["name"];
-        $id = $row["id"];
-        echo "<option value='$id'>$name</option>";
-    }
-}
-
+require_once '..\config\constants.php';
+$cfg = AppConfig::getInstance();
+require_once $cfg->includesPath["scripts.php"];
 ?>
 
 <!-- TODO: Add AJAX modal after push button with "thank you" or smth" -->
@@ -32,50 +11,17 @@ function addoptions($options): void
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css"
-          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" href="source/css/style.css">
-    <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
-    <script type="text/javascript" src="source/js/elements_scripts.js"></script>
+    <link rel="stylesheet" href='../node_modules/bootstrap/dist/css/bootstrap.min.css' integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script type="text/javascript" src="../node_modules/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="../assets/js/elements_scripts.js"></script>
     <title>Опросник</title>
-    <script type="text/javascript" src="source/js/main_script.js"></script>
+    <script type="text/javascript" src="../assets/js/main_script.js"></script>
 </head>
 
-<header>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <a class="navbar-brand container-fluid" href="#">Questionnaire</a>
-    </nav>
-</header>
-
-<script>
-    $("#form").submit(function () {
-        $.ajax({
-            type: "POST",
-            url: 'testchecker.php',
-            data: $("#form").serialize(),
-            beforeSend: function () {
-                // Вывод текста в процессе отправки
-                //$(formNm).html('<p style="text-align:center">Отправка...</p>');
-            },
-            success: function (data) {
-                // Вывод текста результата отправки
-                //$(formNm).html('<p style="text-align:center">'+data+'</p>');
-                alert("success");
-                alert(data);
-            },
-            error: function (jqXHR, text, error) {
-                // Вывод текста ошибки отправки
-                alert("error");
-
-                //$(formNm).html(error);
-            }
-        });
-        return false;
-    });
-</script>
-
+<?php include $cfg->templatesPath["header.php"]?>
 <body>
-<form id="form" method="post" name="sign-form">
+<form id="form" method="post" action="../includes/test_checker.php" name="sign-form">
     <div class="container-fluid text-left">
         <div class="row">
             <div class="col-md-12 text-center pt-3 pb-3"><b>ЛИЧНЫЕ ДАННЫЕ</b></div>
@@ -103,7 +49,7 @@ function addoptions($options): void
             <div class="col-lg-7 col-md-7 col-sm-12">
                 <select class="form-select border-0" name="citizenship_id" aria-label="Small select example" required>
                     <option selected></option>
-                    <?php addoptions($citizenship_options); ?> <!--TODO: Check how it works with AJAX-->
+                    <?php addOptions('citizenship'); ?> <!--TODO: Check how it works with AJAX-->
                 </select>
             </div>
         </div>
@@ -143,7 +89,7 @@ function addoptions($options): void
                 <select class="form-select border-0" name="accommodations_id" aria-label="Small select example"
                         required>
                     <option selected></option>
-                    <?php addoptions($accommodations_options); ?>
+                    <?php addOptions('accommodations'); ?>
                 </select>
             </div>
         </div>
@@ -162,7 +108,7 @@ function addoptions($options): void
             <div class="col-lg-7 col-md-7 col-sm-12">
                 <select class="form-select border-0" name="family_id" aria-label="Small select example" required>
                     <option selected></option>
-                    <?php addoptions($family_options);?>
+                    <?php addOptions('family');?>
                     <option value="-1">Другое: </option>
                 </select>
             </div>
@@ -184,7 +130,7 @@ function addoptions($options): void
             <div class="col-lg-7 col-md-7 col-sm-12">
                 <select class="form-select border-0" name="education_id" aria-label="Small select example" required>
                     <option selected></option>
-                    <?php addoptions($education_options); ?>
+                    <?php addOptions('education'); ?>
                 </select>
             </div>
         </div>
@@ -271,7 +217,7 @@ function addoptions($options): void
                     <div class="col-lg-7 col-md-7 col-sm-12">
                         <select class="form-select border-0" id="dismissal_reason_id" name="dismissal_reason_id" aria-label="Small select example">
                             <option selected></option>
-                            <?php addoptions($dismossal_reason_options); ?>
+                            <?php addOptions('dismissal_reason'); ?>
                         </select>
                     </div>
                 </div>
@@ -288,7 +234,7 @@ function addoptions($options): void
                     <!-- Допилить. Связь с БД -->
                     <select class="form-select border-0" name="applypost_id" aria-label="Small select example">
                         <option selected></option>
-                        <?php addoptions($applypost_options); ?>
+                        <?php addOptions('applypost'); ?>
                     </select>
                 </div>
             </div>
@@ -331,7 +277,7 @@ function addoptions($options): void
                 <div class="col-lg-7 col-md-7 col-sm-12">
                     <select class="form-select border-0" name="pc_skills_id" aria-label="Small select example" required>
                         <option selected></option>
-                        <?php addoptions($pcskills_options); ?>
+                        <?php addOptions('pcskills'); ?>
                     </select>
                 </div>
             </div>
@@ -393,7 +339,7 @@ function addoptions($options): void
                 <div class="col-lg-6 col-md-6 col-sm-6 text-right">
                     <div class="col-12">
                         <div class="text-end">
-                            <button class="btn btn-primary mt-3" name="submit-btn" type="submit" >Обновить</button>
+                            <button class="btn btn-primary mt-3" name="submit-btn" type="submit" >Отправить тест</button>
                         </div>
                     </div>
                 </div>
@@ -402,11 +348,9 @@ function addoptions($options): void
 </form>
 </body>
 
-<footer class="container">
-    <ul class="border-bottom pb-3 mb-3"></ul>
-    <p class="text-center text-body-secondary">© 2023 Company, Inc</p>
-</footer>
+<?php include $cfg->templatesPath["footer.php"]?>
+
 
 <!--<script type="text/javascript" src="source/js/phone_input.js"></script>-->
-<script type="text/javascript" src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 </html>

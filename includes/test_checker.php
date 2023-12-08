@@ -1,12 +1,12 @@
 <?php
-global $conn;
-require_once 'session.php';
-require_once 'config.php';
+require_once '..\config\constants.php';
+$cfg = AppConfig::getInstance();
+require_once $cfg->includesPath["scripts.php"];
+$conn = $cfg->connection;
 
 //$_POST = unserialize(file_get_contents("post.log"));
 
 main($conn);
-
 
 function bindMultiplyValue(PDO $connection, $sql_query, array $params): false|PDOStatement
 {

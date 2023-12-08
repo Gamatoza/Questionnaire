@@ -1,17 +1,62 @@
 <?php
+require_once '..\config\constants.php';
+$cfg = AppConfig::getInstance();
 
+echo '//'.$_SERVER['HTTP_HOST'].'/Questionnaire';
 
+/*$cssPath = $cfg->rootPath."\\assets\\css\\";
+//var_dump(getFileConnections($cssPath));
 
+$some = getFileConnections($cssPath);
 
+var_dump($some);
+
+function getFileConnections(string $rootPath): array
+{
+    $cfg = AppConfig::getInstance();
+    $rii = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($rootPath));
+
+    $paths = array();
+    foreach ($rii as $file)
+        if (!$file->isDir()) {
+            $filename = explode($cfg->rootPath, $file->getPathname());
+            $paths[] = 'Questionnaire'.end($filename);
+        }//TODO: может быть можно сократить до $file->getFilename, хз, надо почитать про rii
+
+    $result = [];
+    foreach ($paths as $path) {
+        $result[pathinfo($path, PATHINFO_FILENAME) . '.' . pathinfo($path, PATHINFO_EXTENSION)] = $path;
+    }
+    return $result;
+}*/
 
 //------------------------------------------------
 //IDK этот код работает и он когда-то будет нужен
+
+//получение названий колонок
+/*function getColumnNames(PDO $connection, $table){
+    $sql = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = :table";
+    try {
+        $stmt = $connection->prepare($sql);
+        $stmt->bindValue(':table', $table, PDO::PARAM_STR);
+        $stmt->execute();
+        $output = array();
+        while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+            $output[] = $row['COLUMN_NAME'];
+        }
+        return $output;
+    }
+
+    catch(PDOException $pe) {
+        trigger_error('Could not connect to MySQL database. ' . $pe->getMessage() , E_USER_ERROR);
+    }
+}*/
 
 //ajax, потом использовать его нужно в админке
 /*$("#form").submit(function () {
     $.ajax({
         type: "POST",
-        url: 'testchecker.php',
+        url: 'test_checker.php',
         data: $("#form").serialize(),
         beforeSend: function () {
             // Вывод текста в процессе отправки

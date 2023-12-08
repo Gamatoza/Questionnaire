@@ -1,8 +1,8 @@
 <?php
-define('ROOT_PATH',$_SERVER['DOCUMENT_ROOT'].'/Questionnaire');
-require_once(ROOT_PATH.'/module/config.php');
-global $conn;
-require_once(ROOT_PATH.'/module/config.php');
+require_once '..\config\constants.php';
+$cfg = AppConfig::getInstance();
+require_once $cfg->includesPath["scripts.php"];
+$conn = $cfg->connection;
 
 if(!isset($_SESSION['uid']) or $_SESSION['uid'] == -1)
     header("location: login.php");
