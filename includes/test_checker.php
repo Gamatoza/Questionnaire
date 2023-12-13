@@ -1,7 +1,6 @@
 <?php
-require_once '..\config\constants.php';
+require_once '../vendor/autoload.php';
 $cfg = AppConfig::getInstance();
-require_once $cfg->includesPath["scripts.php"];
 $conn = $cfg->connection;
 
 //$_POST = unserialize(file_get_contents("post.log"));

@@ -1,7 +1,6 @@
 <?php
-require_once '..\config\constants.php';
+require '../vendor/autoload.php';
 $cfg = AppConfig::getInstance();
-require_once $cfg->includesPath["scripts.php"];
 ?>
 
 <!-- TODO: Add AJAX modal after push button with "thank you" or smth" -->
@@ -18,7 +17,6 @@ require_once $cfg->includesPath["scripts.php"];
     <title>Опросник</title>
     <script type="text/javascript" src="../assets/js/main_script.js"></script>
 </head>
-
 <?php include $cfg->templatesPath["header.php"]?>
 <body>
 <form id="form" method="post" action="../includes/test_checker.php" name="sign-form">
@@ -49,7 +47,7 @@ require_once $cfg->includesPath["scripts.php"];
             <div class="col-lg-7 col-md-7 col-sm-12">
                 <select class="form-select border-0" name="citizenship_id" aria-label="Small select example" required>
                     <option selected></option>
-                    <?php addOptions('citizenship'); ?> <!--TODO: Check how it works with AJAX-->
+                    <?php Utils::addOptions('citizenship'); ?> <!--TODO: Check how it works with AJAX-->
                 </select>
             </div>
         </div>
@@ -89,7 +87,7 @@ require_once $cfg->includesPath["scripts.php"];
                 <select class="form-select border-0" name="accommodations_id" aria-label="Small select example"
                         required>
                     <option selected></option>
-                    <?php addOptions('accommodations'); ?>
+                    <?php Utils::addOptions('accommodations'); ?>
                 </select>
             </div>
         </div>
@@ -108,7 +106,7 @@ require_once $cfg->includesPath["scripts.php"];
             <div class="col-lg-7 col-md-7 col-sm-12">
                 <select class="form-select border-0" name="family_id" aria-label="Small select example" required>
                     <option selected></option>
-                    <?php addOptions('family');?>
+                    <?php Utils::addOptions('family');?>
                     <option value="-1">Другое: </option>
                 </select>
             </div>
@@ -130,7 +128,7 @@ require_once $cfg->includesPath["scripts.php"];
             <div class="col-lg-7 col-md-7 col-sm-12">
                 <select class="form-select border-0" name="education_id" aria-label="Small select example" required>
                     <option selected></option>
-                    <?php addOptions('education'); ?>
+                    <?php Utils::addOptions('education'); ?>
                 </select>
             </div>
         </div>
@@ -217,7 +215,7 @@ require_once $cfg->includesPath["scripts.php"];
                     <div class="col-lg-7 col-md-7 col-sm-12">
                         <select class="form-select border-0" id="dismissal_reason_id" name="dismissal_reason_id" aria-label="Small select example">
                             <option selected></option>
-                            <?php addOptions('dismissal_reason'); ?>
+                            <?php Utils::addOptions('dismissal_reason'); ?>
                         </select>
                     </div>
                 </div>
@@ -234,7 +232,7 @@ require_once $cfg->includesPath["scripts.php"];
                     <!-- Допилить. Связь с БД -->
                     <select class="form-select border-0" name="applypost_id" aria-label="Small select example">
                         <option selected></option>
-                        <?php addOptions('applypost'); ?>
+                        <?php Utils::addOptions('applypost'); ?>
                     </select>
                 </div>
             </div>
@@ -277,7 +275,7 @@ require_once $cfg->includesPath["scripts.php"];
                 <div class="col-lg-7 col-md-7 col-sm-12">
                     <select class="form-select border-0" name="pc_skills_id" aria-label="Small select example" required>
                         <option selected></option>
-                        <?php addOptions('pcskills'); ?>
+                        <?php Utils::addOptions('pcskills'); ?>
                     </select>
                 </div>
             </div>

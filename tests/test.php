@@ -1,8 +1,16 @@
 <?php
-require_once '..\config\constants.php';
+declare(strict_types=1);
+require_once '../vendor/autoload.php';
 $cfg = AppConfig::getInstance();
 
-echo '//'.$_SERVER['HTTP_HOST'].'/Questionnaire';
+
+
+//$cfg = AppConfig::getInstance();
+
+
+
+
+
 
 /*$cssPath = $cfg->rootPath."\\assets\\css\\";
 //var_dump(getFileConnections($cssPath));
@@ -13,7 +21,7 @@ var_dump($some);
 
 function getFileConnections(string $rootPath): array
 {
-    $cfg = AppConfig::getInstance();
+    $cfg = constants::getInstance();
     $rii = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($rootPath));
 
     $paths = array();

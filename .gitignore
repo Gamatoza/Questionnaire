@@ -11,7 +11,7 @@ ehthumbs_vista.db
 # Dump file
 *.stackdump
 
-# Folder config file
+# Folder constants file
 [Dd]esktop.ini
 
 # Recycle Bin used on file shares
@@ -40,3 +40,15 @@ node_modules
 
 #logs
 *.log
+
+#large files
+
+#images
+assets/images/*
+
+#composer
+/vendor/
+
+#tests
+/tests/
+tests/*

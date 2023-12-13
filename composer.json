@@ -1,0 +1,20 @@
+{
+    "name": "tihon/questionnaire",
+    "license": "",
+    "autoload": {
+        "psr-4": {
+            "": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Gamatoza",
+            "email": "dev.tihonvlasov@gmail.com"
+        }
+    ],
+    "require": {
+      "ext-pdo": "*"
+    }
+}
+
+

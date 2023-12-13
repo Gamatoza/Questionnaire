@@ -1,7 +1,7 @@
 <?php
 require_once 'session.php';
 
-class DB
+class DBConfig
 {
     private PDO $conn;
     private static string $user = 'root';
