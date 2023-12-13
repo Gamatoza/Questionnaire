@@ -18,7 +18,7 @@ if(!isset($_SESSION['uid']) or $_SESSION['uid'] == -1)
     <script type="text/javascript" src="../../node_modules/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="../../assets/js/elements_scripts.js"></script>
     <title>Опросник</title>
-    <script type="text/javascript" src="../../assets/js/main_script.js"></script>
+    <script type="text/javascript" src="../../assets/js/cachepage_script.js"></script>
     <script type="text/javascript" src="../../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 
 </head>

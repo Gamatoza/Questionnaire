@@ -18,6 +18,7 @@ function disSet(bool_param) { //TODO: допилить сохранение вк
 }
 
 function disClick() { //TODO: допилить сохранение включённой и выключенной кнопки
+    sessionStorage.setItem("isDis", IsDisClicked?"true":"false");
     if (IsDisClicked) {
         $('#dismissal_btn').val('Добавить дату увольнения');
         buf[0] = $("#dismissal_date").val();

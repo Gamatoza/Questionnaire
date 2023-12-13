@@ -5,19 +5,14 @@ $conn = $cfg->connection;
 
 class Utils
 {
-    public static function addOptions(string $options,$selected_option = '', $isyesno = false): void
+    public static function addOptions(string $from, $selected_option = ''): void
     {
         if($selected_option === '')
             echo "<option selected></option>";
-        $result = AppConfig::getInstance()->connection->query("SELECT * FROM questionnaire." . $options); //TODO обрамить SQLку
+        $result = AppConfig::getInstance()->connection->query("SELECT * FROM questionnaire." . $from); //TODO обрамить SQLку
         while ($row = $result->fetch()) {
             $name = $row["name"];
             $id = $row["id"];
-            if($isyesno) {
-                if ($row["name"])
-                    $name = "True";
-                else $name = "False";
-            }
             $selected = $name==$selected_option?'selected':'';
             echo "<option value='$id' $selected>$name</option>";
         }

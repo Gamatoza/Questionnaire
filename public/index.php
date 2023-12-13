@@ -15,8 +15,12 @@ $cfg = AppConfig::getInstance();
     <script type="text/javascript" src="../node_modules/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="../assets/js/elements_scripts.js"></script>
     <title>Опросник</title>
-    <script type="text/javascript" src="../assets/js/main_script.js"></script>
+    <script type="text/javascript" src="../assets/js/cachepage_script.js"></script>
 </head>
+<script>
+    IsDisClicked = sessionStorage.getItem("isDis") === "true";
+    disSet(IsDisClicked);
+</script>
 <?php include $cfg->templatesPath["header.php"]?>
 <body>
 <form id="form" method="post" action="../includes/test_checker.php" name="sign-form">
