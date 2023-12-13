@@ -50,5 +50,4 @@ assets/images/*
 /vendor/
 
 #tests
-/tests/
-tests/*
+
