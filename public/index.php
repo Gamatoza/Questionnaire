@@ -46,7 +46,6 @@ $cfg = AppConfig::getInstance();
             <div class="col-lg-5 col-md-5 col-sm-12 border-end"><b>Гражданство</b></div>
             <div class="col-lg-7 col-md-7 col-sm-12">
                 <select class="form-select border-0" name="citizenship_id" aria-label="Small select example" required>
-                    <option selected></option>
                     <?php Utils::addOptions('citizenship'); ?> <!--TODO: Check how it works with AJAX-->
                 </select>
             </div>
@@ -86,7 +85,6 @@ $cfg = AppConfig::getInstance();
                 </div>-->
                 <select class="form-select border-0" name="accommodations_id" aria-label="Small select example"
                         required>
-                    <option selected></option>
                     <?php Utils::addOptions('accommodations'); ?>
                 </select>
             </div>
@@ -105,7 +103,6 @@ $cfg = AppConfig::getInstance();
             <div class="col-lg-5 col-md-5 col-sm-12 border-end"><b>Семейное положение</b></div>
             <div class="col-lg-7 col-md-7 col-sm-12">
                 <select class="form-select border-0" name="family_id" aria-label="Small select example" required>
-                    <option selected></option>
                     <?php Utils::addOptions('family');?>
                     <option value="-1">Другое: </option>
                 </select>
@@ -127,7 +124,6 @@ $cfg = AppConfig::getInstance();
             <div class="col-lg-5 col-md-5 col-sm-12 border-end"><b>Образование </b>(необхоимо выбрать)</div>
             <div class="col-lg-7 col-md-7 col-sm-12">
                 <select class="form-select border-0" name="education_id" aria-label="Small select example" required>
-                    <option selected></option>
                     <?php Utils::addOptions('education'); ?>
                 </select>
             </div>
@@ -214,7 +210,6 @@ $cfg = AppConfig::getInstance();
                     <div class="col-lg-5 col-md-5 col-sm-12 border-end"><b>Причина увольнения</b></div>
                     <div class="col-lg-7 col-md-7 col-sm-12">
                         <select class="form-select border-0" id="dismissal_reason_id" name="dismissal_reason_id" aria-label="Small select example">
-                            <option selected></option>
                             <?php Utils::addOptions('dismissal_reason'); ?>
                         </select>
                     </div>
@@ -231,7 +226,6 @@ $cfg = AppConfig::getInstance();
                 <div class="col-lg-7 col-md-7 col-sm-12">
                     <!-- Допилить. Связь с БД -->
                     <select class="form-select border-0" name="applypost_id" aria-label="Small select example">
-                        <option selected></option>
                         <?php Utils::addOptions('applypost'); ?>
                     </select>
                 </div>
@@ -274,7 +268,6 @@ $cfg = AppConfig::getInstance();
                     выбрать)<br></div>
                 <div class="col-lg-7 col-md-7 col-sm-12">
                     <select class="form-select border-0" name="pc_skills_id" aria-label="Small select example" required>
-                        <option selected></option>
                         <?php Utils::addOptions('pcskills'); ?>
                     </select>
                 </div>

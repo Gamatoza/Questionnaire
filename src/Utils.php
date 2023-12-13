@@ -1,17 +1,25 @@
 <?php
+declare(strict_types=1);
 $cfg = AppConfig::getInstance();
 $conn = $cfg->connection;
 
-
 class Utils
 {
-    public static function addOptions($options): void
+    public static function addOptions(string $options,$selected_option = '', $isyesno = false): void
     {
-        $options = AppConfig::getInstance()->connection->query("SELECT * FROM questionnaire." . $options); //TODO обрамить SQLку
-        while ($row = $options->fetch()) {
+        if($selected_option === '')
+            echo "<option selected></option>";
+        $result = AppConfig::getInstance()->connection->query("SELECT * FROM questionnaire." . $options); //TODO обрамить SQLку
+        while ($row = $result->fetch()) {
             $name = $row["name"];
             $id = $row["id"];
-            echo "<option value='$id'>$name</option>";
+            if($isyesno) {
+                if ($row["name"])
+                    $name = "True";
+                else $name = "False";
+            }
+            $selected = $name==$selected_option?'selected':'';
+            echo "<option value='$id' $selected>$name</option>";
         }
     }
 

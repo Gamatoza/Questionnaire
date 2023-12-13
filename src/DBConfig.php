@@ -27,6 +27,8 @@ class DBConfig
 
         return $conn;
     }
+
+    //TODO: Добавить деструктор
 }
 
 
