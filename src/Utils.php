@@ -7,7 +7,7 @@ class Utils
 {
     //TODO: where state need to prepare too
     //TODO: \ check diff values before that, if has similar - return false
-    public static function bindOnlyNeeded(PDO $connection, array $params, int $query_type, string $table, string $where = ""): false|PDOStatement //TODO: feature need for insert/delete
+    public static function bindMultiply(PDO $connection, array $params, int $query_type, string $table, string $where = ""): false|PDOStatement //TODO: feature need for insert/delete
     {
         $keys = array_keys($params);
         $values = array_values($params);
@@ -33,10 +33,10 @@ class Utils
         }
 
 
-        return self::bindMultiplyValue($connection, $query, $values);
+        return self::buildStatement($connection, $query, $values);
     }
 
-    public static function bindMultiplyValue(PDO $connection, $sql_query, array $params): false|PDOStatement
+    public static function buildStatement(PDO $connection, $sql_query, array $params): false|PDOStatement
     {
         $matches = [];
         $regex = "\"(?<=:)\w*\"";
@@ -45,19 +45,6 @@ class Utils
         preg_match_all($regex, $sql_query, $matches);
         for ($i = 0; $i < count($matches[0]); $i++) {
             $stmt->bindValue($matches[0][$i], $params[$i]);
-        }
-        return $stmt;
-    }
-
-    public static function bindMultiplyValue_FromPOST(PDO $connection, $sql_query): false|PDOStatement
-    {
-        $matches = [];
-        $regex = "\"(?<=:)\w*\"";
-
-        $stmt = $connection->prepare($sql_query);
-        preg_match_all($regex, $sql_query, $matches);
-        foreach ($matches[0] as $value) {
-            $stmt->bindValue($value, $_POST[$value]);
         }
         return $stmt;
     }
@@ -82,7 +69,7 @@ class Utils
         echo "</pre>";
     }
 
-    function getMainData(PDO $connection, array $columns)
+    public static function getMainData(PDO $connection, array $columns)
     {
         $sql = "SELECT " . implode(', ', $columns) . " FROM show_main_info";
         try {
