@@ -30,28 +30,9 @@ foreach ($fio as $value) {
     <script type="text/javascript" src="../../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 
 </head>
-
-<?php include $cfg->templatesPath["header.php"] ?>
-
-<body>
-<div class="container">
-    <div class="row">
-        <div class="col-lg-12">
-            <h2>Search for users</h2>
-            <input type="text" name="search" id="search" autocomplete="off" placeholder="search user name here....">
-            <div id="output"></div>
-        </div>
-    </div>
-</div>
-
 <script type="text/javascript">
-    $(()=>
-    {
-        getinfo();
-    });
-
     function getinfo() {
-        var query = $(this).val();
+        var query = $("#search").val();
         if (query != "") {
             $.ajax({
                 url: '../../includes/search_form.php',
@@ -68,9 +49,25 @@ foreach ($fio as $value) {
     }
 
     $(document).ready(function () {
+        getinfo();
         $("#search").keyup(getinfo);
     });
 </script>
+
+<?php include $cfg->templatesPath["header.php"] ?>
+
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <h2>Поиск пользователей</h2>
+            <input type="text" name="search" id="search" autocomplete="off" placeholder="Поиск....">
+            <div id="output"></div>
+        </div>
+    </div>
+</div>
+
+
 </body>
 
 <?php include $cfg->templatesPath["footer.php"] ?>

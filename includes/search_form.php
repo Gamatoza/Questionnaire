@@ -10,6 +10,6 @@ if (isset($_POST['query'])) {
         echo "<div><a href='showprofile.php?id={$value['id']}'>" . $value['fio'] . "</a></div>";
     }
     else {
-        echo "<p style='color:red'>User not found...</p>";
+        echo "<p style='color:red'>Пользователь не найден...</p>";
     }
 }
