@@ -12,7 +12,6 @@ if (isset($_POST['submit-btn']))
                 values (:fio, :birthday, :citizenship_id, :birthplace, :address, :accommodations_id, :phone, :family_id,
                 :family_structure, :education_id, :education_date, :education_facility, :education_faculty);";
 
-    //TODO: combine it in an array, mb regex with tablename_param and remove tablename_
     $stmt = Utils::bindMultiplyValue_FromPOST($conn,$person_query);
     $stmt->execute();
     $person_id = $conn->lastInsertId();
@@ -24,9 +23,9 @@ if (isset($_POST['submit-btn']))
     $skills_id = $conn->lastInsertId();
 
 
-    $workorg_query = "insert into workorg (organization, post, admission_date, dismissal_date, dismossal_reason_id, applypost_id,
+    $workorg_query = "insert into workorg (organization, post, admission_date, dismissal_date, dismissal_reason_id, applypost_id,
                  isagree_position, isagree_removal)
-                 values (:organization, :post, :admission_date, :dismissal_date, :dismossal_reason_id, :applypost_id,
+                 values (:organization, :post, :admission_date, :dismissal_date, :dismissal_reason_id, :applypost_id,
                  :isagree_position, :isagree_removal);";
 
     $stmt = Utils::bindMultiplyValue_FromPOST($conn,$workorg_query);

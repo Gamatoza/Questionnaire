@@ -20,6 +20,12 @@ $cfg = AppConfig::getInstance();
 <script>
     IsDisClicked = sessionStorage.getItem("isDis") === "true";
     disSet(IsDisClicked);
+
+    $(()=>{
+        $("#form").submit(function (){
+           sessionStorage.clear();
+        });
+    });
 </script>
 <?php include $cfg->templatesPath["header.php"]?>
 <body>

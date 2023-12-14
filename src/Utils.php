@@ -5,43 +5,72 @@ $conn = $cfg->connection;
 
 class Utils
 {
-    //TODO: add bind only by FromPOST has values
+    //TODO: where state need to prepare too
+    //TODO: \ check diff values before that, if has similar - return false
+    public static function bindOnlyNeeded(PDO $connection, array $params, int $query_type, string $table, string $where = ""): false|PDOStatement //TODO: feature need for insert/delete
+    {
+        $keys = array_keys($params);
+        $values = array_values($params);
+        switch ($query_type) {
+
+            case QueryType::INSERT:
+            {
+                $insert_values = implode(", ", $keys);
+                $implements = implode(", ", array_map(fn($item) => ':' . $item, $keys));
+                $query = "insert into $table($insert_values) values ($implements)";
+                break;
+            }
+            case QueryType::UPDATE:
+            {
+                $set_statement = array_map(fn($elem) => "$elem = :$elem", $keys);
+                $query = "update $table set "
+                    . implode(", ", $set_statement)
+                    . " where " . $where;
+                break;
+            }
+            default:
+                return false;
+        }
+
+
+        return self::bindMultiplyValue($connection, $query, $values);
+    }
+
     public static function bindMultiplyValue(PDO $connection, $sql_query, array $params): false|PDOStatement
     {
         $matches = [];
         $regex = "\"(?<=:)\w*\"";
 
         $stmt = $connection->prepare($sql_query);
-        preg_match_all($regex,$sql_query,$matches);
-        for ($i = 0; $i < count($matches[0]); $i++)
-        {
-            $stmt->bindValue($matches[0][$i],$params[$i]);
+        preg_match_all($regex, $sql_query, $matches);
+        for ($i = 0; $i < count($matches[0]); $i++) {
+            $stmt->bindValue($matches[0][$i], $params[$i]);
         }
         return $stmt;
     }
+
     public static function bindMultiplyValue_FromPOST(PDO $connection, $sql_query): false|PDOStatement
     {
         $matches = [];
         $regex = "\"(?<=:)\w*\"";
 
         $stmt = $connection->prepare($sql_query);
-        preg_match_all($regex,$sql_query,$matches);
-        foreach ($matches[0] as $value)
-        {
-            $stmt->bindValue($value,$_POST[$value]);
+        preg_match_all($regex, $sql_query, $matches);
+        foreach ($matches[0] as $value) {
+            $stmt->bindValue($value, $_POST[$value]);
         }
         return $stmt;
     }
 
     public static function addOptions(string $from, $selected_option = ''): void
     {
-        if($selected_option === '')
+        if ($selected_option === '')
             echo "<option selected></option>";
         $result = AppConfig::getInstance()->connection->query("SELECT * FROM questionnaire." . $from); //TODO обрамить SQLку
         while ($row = $result->fetch()) {
             $name = $row["name"];
             $id = $row["id"];
-            $selected = $name==$selected_option?'selected':'';
+            $selected = $name == $selected_option ? 'selected' : '';
             echo "<option value='$id' $selected>$name</option>";
         }
     }

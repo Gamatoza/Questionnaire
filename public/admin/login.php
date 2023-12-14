@@ -3,7 +3,12 @@ require_once '../../vendor/autoload.php';
 $cfg = AppConfig::getInstance();
 $conn = $cfg->connection;
 
+
+if(isset($_SESSION['uid']))
+    header("location: index.php");
+
 $users = $conn->query("SELECT * FROM questionnaire.users;");
+
 
 ?>
 <!DOCTYPE html>

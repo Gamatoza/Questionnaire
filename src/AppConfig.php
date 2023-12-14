@@ -34,7 +34,7 @@ class AppConfig
             $this->rootPath = realpath(__DIR__.'/../');;
             //__DIR__."../";
             //realpath(dirname(__FILE__)."/.."); //$_SERVER['DOCUMENT_ROOT'];
-            $this->serverPath = '\\\\'.$_SERVER['HTTP_HOST'].'\\Questionnaire';
+            //$this->serverPath = '\\\\'.$_SERVER['HTTP_HOST'].'\\Questionnaire';
             //TODO: update modify, просто присваивать
             $this->templatesPath = self::getFileConnections("\\templates\\");
 

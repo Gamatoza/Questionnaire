@@ -3,6 +3,15 @@ declare(strict_types=1);
 require_once '../vendor/autoload.php';
 $cfg = AppConfig::getInstance();
 
+$some = array();
+$some['a'] = '1';
+$some['somearray'] = ['2','3','4'];
+$some[] = [['5'],'6'];
+
+echo "<pre>";
+print_r($some);
+echo "</pre>";
+
 
 
 //$cfg = AppConfig::getInstance();
