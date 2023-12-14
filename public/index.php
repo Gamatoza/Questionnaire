@@ -38,7 +38,7 @@ $cfg = AppConfig::getInstance();
             <div class="col-lg-5 col-md-5 col-sm-12 border-end"><b>Фамилия, имя, отчество</b> (полностью)</div>
             <div class="col-lg-7 col-md-7 col-sm-12 ">
                 <div class="input-group">
-                    <input outline="none" type="text" name="fio" class="form-control border-0" required>
+                    <input outline="none" type="text" name="person[fio]" class="form-control border-0" required>
                 </div>
             </div>
         </div>
@@ -47,7 +47,7 @@ $cfg = AppConfig::getInstance();
             <div class="col-lg-5 col-md-5 col-sm-12 border-end"><b>Дата рождения</b></div>
             <div class="col-lg-2 col-md-3 col-sm-3">
                 <div class="form-group">
-                    <input type="date" name="birthday" class="form-control border-0" required>
+                    <input type="date" name="person[birthday]" class="form-control border-0" required>
                 </div>
             </div>
         </div>
@@ -55,7 +55,7 @@ $cfg = AppConfig::getInstance();
         <div class="row border-top border-bottom">
             <div class="col-lg-5 col-md-5 col-sm-12 border-end"><b>Гражданство</b></div>
             <div class="col-lg-7 col-md-7 col-sm-12">
-                <select class="form-select border-0" name="citizenship_id" aria-label="Small select example" required>
+                <select class="form-select border-0" name="person[citizenship_id]" aria-label="Small select example" required>
                     <?php Utils::addOptions('citizenship'); ?> <!--TODO: Check how it works with AJAX-->
                 </select>
             </div>
@@ -73,7 +73,7 @@ $cfg = AppConfig::getInstance();
             <div class="col-lg-5 col-md-5 col-sm-12 border-end"><b>Место рождения</b></div>
             <div class="col-lg-7 col-md-7 col-sm-12">
                 <div class="input-group">
-                    <input type="text" name="birthplace" class="form-control border-0" required>
+                    <input type="text" name="person[birthplace]" class="form-control border-0" required>
                 </div>
             </div>
         </div>
@@ -82,7 +82,7 @@ $cfg = AppConfig::getInstance();
             <div class="col-lg-5 col-md-5 col-sm-12 border-end"><b>Адрес места жительства</b></div>
             <div class="col-lg-7 col-md-7 col-sm-12">
                 <div class="input-group">
-                    <input type="text" name="address" class="form-control border-0" required>
+                    <input type="text" name="person[address]" class="form-control border-0" required>
                 </div>
             </div>
         </div>
@@ -93,7 +93,7 @@ $cfg = AppConfig::getInstance();
                 <!--<div class="input-group">
                     <input id="kit" type="text" class="form-control border-0">
                 </div>-->
-                <select class="form-select border-0" name="accommodations_id" aria-label="Small select example"
+                <select class="form-select border-0" name="person[accommodations_id]" aria-label="Small select example"
                         required>
                     <?php Utils::addOptions('accommodations'); ?>
                 </select>
@@ -103,7 +103,7 @@ $cfg = AppConfig::getInstance();
         <div class="row border-top border-bottom">
             <div class="col-lg-5 col-md-5 col-sm-12 border-end"><b>Мобильный телефон:</b></div>
             <div class="col-lg-7 col-md-7 col-sm-12">
-                <input class=" container-fluid form-control border-0" name="phone" id="phone" type="tel"
+                <input class=" container-fluid form-control border-0" name="person[phone]" id="phone" type="tel"
                        pattern="(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){10,14}(\s*)?"
                        title="Введите номер телефона в формате +375 XX XXX XX XX" required>
             </div>
@@ -112,7 +112,7 @@ $cfg = AppConfig::getInstance();
         <div class="row border-top border-bottom">
             <div class="col-lg-5 col-md-5 col-sm-12 border-end"><b>Семейное положение</b></div>
             <div class="col-lg-7 col-md-7 col-sm-12">
-                <select class="form-select border-0" name="family_id" aria-label="Small select example" required>
+                <select class="form-select border-0" name="person[family_id]" aria-label="Small select example" required>
                     <?php Utils::addOptions('family');?>
                     <option value="-1">Другое: </option>
                 </select>
@@ -125,7 +125,7 @@ $cfg = AppConfig::getInstance();
             </div>
             <div class="col-lg-7 col-md-7 col-sm-12">
                 <div class="input-group">
-                    <input type="text" name="family_structure" class="form-control border-0" required>
+                    <input type="text" name="person[family_structure]" class="form-control border-0" required>
                 </div>
             </div>
         </div>
@@ -133,7 +133,7 @@ $cfg = AppConfig::getInstance();
         <div class="row">
             <div class="col-lg-5 col-md-5 col-sm-12 border-end"><b>Образование </b>(необхоимо выбрать)</div>
             <div class="col-lg-7 col-md-7 col-sm-12">
-                <select class="form-select border-0" name="education_id" aria-label="Small select example" required>
+                <select class="form-select border-0" name="person[education_id]" aria-label="Small select example" required>
                     <?php Utils::addOptions('education'); ?>
                 </select>
             </div>
@@ -146,20 +146,20 @@ $cfg = AppConfig::getInstance();
                     <div class="input-group">
                         <b>Дата окончания:</b>
                         <div class="form-group">
-                            <input type="date" name="education_date" class="form-control border-0" required>
+                            <input type="date" name="person[education_date]" class="form-control border-0" required>
                         </div>
                     </div>
                 </div>
                 <div class="row border-top border-bottom">
                     <div class="input-group">
                         <b>Учебное заведение:</b>
-                        <input type="text" name="education_facility" class="form-control border-0" required>
+                        <input type="text" name="person[education_facility]" class="form-control border-0" required>
                     </div>
                 </div>
                 <div class="row border-top border-bottom">
                     <div class="input-group">
                         <b>Факультет:</b>
-                        <input type="text" name="education_faculty" class="form-control border-0" required>
+                        <input type="text" name="person[education_faculty]" class="form-control border-0" required>
                     </div>
                 </div>
             </div>
@@ -181,7 +181,7 @@ $cfg = AppConfig::getInstance();
                 <div class="col-lg-5 col-md-5 col-sm-12 border-end"><b>Организация</b></div>
                 <div class="col-lg-7 col-md-7 col-sm-12">
                     <div class="input-group">
-                        <input type="text" name="organization" class="form-control border-0" required>
+                        <input type="text" name="workorg[organization]" class="form-control border-0" required>
                     </div>
                 </div>
             </div>
@@ -190,7 +190,7 @@ $cfg = AppConfig::getInstance();
                 <div class="col-lg-5 col-md-5 col-sm-12 border-end"><b>Должность</b></div>
                 <div class="col-lg-7 col-md-7 col-sm-12">
                     <div class="input-group">
-                        <input type="text" name="post" class="form-control border-0" required>
+                        <input type="text" name="workorg[post]" class="form-control border-0" required>
                     </div>
                 </div>
             </div>
@@ -199,7 +199,7 @@ $cfg = AppConfig::getInstance();
                 <div class="col-lg-5 col-md-5 col-sm-12 border-end"><b>Дата приема/увольнения</b></div>
                 <div class="col-lg-2 col-md-3 col-sm-3">
                     <div class="form-group">
-                        <input type="date" name="admission_date" class="form-control border-0" required>
+                        <input type="date" name="workorg[admission_date]" class="form-control border-0" required>
                     </div>
                 </div>
             </div>
@@ -212,14 +212,14 @@ $cfg = AppConfig::getInstance();
                     <div class="col-lg-5 col-md-5 col-sm-12 border-end"><b>Дата увольнения</b></div>
                     <div class="col-lg-2 col-md-3 col-sm-3">
                         <div class="form-group">
-                            <input type="date" id="dismissal_date" name="dismissal_date" class="form-control border-0" required>
+                            <input type="date" id="dismissal_date" name="workorg[dismissal_date]" class="form-control border-0" required>
                         </div>
                     </div>
                 </div>
                 <div class="row border-top border-bottom">
                     <div class="col-lg-5 col-md-5 col-sm-12 border-end"><b>Причина увольнения</b></div>
                     <div class="col-lg-7 col-md-7 col-sm-12">
-                        <select class="form-select border-0" id="dismissal_reason_id" name="dismissal_reason_id" aria-label="Small select example">
+                        <select class="form-select border-0" id="dismissal_reason_id" name="workorg[dismissal_reason_id]" aria-label="Small select example">
                             <?php Utils::addOptions('dismissal_reason'); ?>
                         </select>
                     </div>
@@ -235,7 +235,7 @@ $cfg = AppConfig::getInstance();
                 <div class="col-lg-5 col-md-5 col-sm-12 border-end"><b>На какую должность претендует</b></div>
                 <div class="col-lg-7 col-md-7 col-sm-12">
                     <!-- Допилить. Связь с БД -->
-                    <select class="form-select border-0" name="applypost_id" aria-label="Small select example">
+                    <select class="form-select border-0" name="workorg[applypost_id]" aria-label="Small select example">
                         <?php Utils::addOptions('applypost'); ?>
                     </select>
                 </div>
@@ -246,7 +246,7 @@ $cfg = AppConfig::getInstance();
                     выбрать)
                 </div>
                 <div class="col-lg-7 col-md-7 col-sm-12">
-                    <select class="form-select border-0" name="isagree_position" aria-label="Small select example"
+                    <select class="form-select border-0" name="workorg[isagree_position]" aria-label="Small select example"
                             required>
                         <option selected></option>
                         <option value="1">Да</option>
@@ -260,7 +260,7 @@ $cfg = AppConfig::getInstance();
                     выбрать)
                 </div>
                 <div class="col-lg-7 col-md-7 col-sm-12">
-                    <select class="form-select border-0" name="isagree_removal" aria-label="Small select example"
+                    <select class="form-select border-0" name="workorg[isagree_removal]" aria-label="Small select example"
                             required>
                         <option selected></option>
                         <option value="1">Да</option>
@@ -277,7 +277,7 @@ $cfg = AppConfig::getInstance();
                 <div class="col-lg-5 col-md-5 col-sm-12 border-end"><b>Навыки владения компьютером </b>(необходимое
                     выбрать)<br></div>
                 <div class="col-lg-7 col-md-7 col-sm-12">
-                    <select class="form-select border-0" name="pc_skills_id" aria-label="Small select example" required>
+                    <select class="form-select border-0" name="skills[pc_skills_id]" aria-label="Small select example" required>
                         <?php Utils::addOptions('pcskills'); ?>
                     </select>
                 </div>
@@ -288,7 +288,7 @@ $cfg = AppConfig::getInstance();
                 </div>
                 <div class="col-lg-7 col-md-7 col-sm-12">
                     <div class="input-group">
-                        <input type="text" name="languages" class="form-control border-0" required>
+                        <input type="text" name="skills[languages]" class="form-control border-0" required>
                     </div>
                 </div>
             </div>
@@ -300,7 +300,7 @@ $cfg = AppConfig::getInstance();
                 <div class="col-lg-7 col-md-7 col-sm-12">
                     <!-- Допилить. Связь с БД -->
                     <div class="input-group">
-                        <input type="text" name="hobbies" class="form-control border-0" required>
+                        <input type="text" name="skills[hobbies]" class="form-control border-0" required>
                     </div>
                 </div>
             </div>
@@ -313,7 +313,7 @@ $cfg = AppConfig::getInstance();
                 <div class="col-lg-7 col-md-7 col-sm-12">
                     <!-- Допилить. Связь с БД -->
                     <div class="input-group">
-                        <input type="text" name="advantages" class="form-control border-0" required>
+                        <input type="text" name="skills[advantages]" class="form-control border-0" required>
                     </div>
                 </div>
             </div>

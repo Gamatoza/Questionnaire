@@ -7,28 +7,17 @@ $conn = $cfg->connection;
 
 if (isset($_POST['submit-btn']))
 {
-    $person_query = "insert into person (fio, birthday, citizenship_id, birthplace, address, accommodations_id, phone, family_id,
-                family_structure, education_id, education_date, education_facility, education_faculty) 
-                values (:fio, :birthday, :citizenship_id, :birthplace, :address, :accommodations_id, :phone, :family_id,
-                :family_structure, :education_id, :education_date, :education_facility, :education_faculty);";
-
-    $stmt = Utils::bindMultiplyValue_FromPOST($conn,$person_query);
+    $stmt = Utils::bindOnlyNeeded($conn,$_POST['person'],QueryType::INSERT,'person');
     $stmt->execute();
     $person_id = $conn->lastInsertId();
-    $skills_query = "insert into skills (pc_skills_id, languages, hobbies, advantages)
-                values (:pc_skills_id, :languages, :hobbies, :advantages);";
 
-    $stmt = Utils::bindMultiplyValue_FromPOST($conn,$skills_query);
+
+    $stmt = Utils::bindOnlyNeeded($conn,$_POST['skills'],QueryType::INSERT,'skills');
     $stmt->execute();
     $skills_id = $conn->lastInsertId();
 
 
-    $workorg_query = "insert into workorg (organization, post, admission_date, dismissal_date, dismissal_reason_id, applypost_id,
-                 isagree_position, isagree_removal)
-                 values (:organization, :post, :admission_date, :dismissal_date, :dismissal_reason_id, :applypost_id,
-                 :isagree_position, :isagree_removal);";
-
-    $stmt = Utils::bindMultiplyValue_FromPOST($conn,$workorg_query);
+    $stmt = Utils::bindOnlyNeeded($conn,$_POST['workorg'],QueryType::INSERT,'workorg');
     $stmt->execute();
     $workorg_id = $conn->lastInsertId();
 
@@ -39,7 +28,6 @@ if (isset($_POST['submit-btn']))
     $stmt->execute();
 
     //TODO: Insert some page with Thank you for do this question, idk
-
 }
 
 
