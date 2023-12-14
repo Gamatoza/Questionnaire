@@ -64,7 +64,7 @@ function getFileConnections(string $rootPath): array
 /*$("#form").submit(function () {
     $.ajax({
         type: "POST",
-        url: 'test_checker.php',
+        url: 'test_form_handler.php',
         data: $("#form").serialize(),
         beforeSend: function () {
             // Вывод текста в процессе отправки

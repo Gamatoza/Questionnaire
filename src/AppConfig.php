@@ -5,13 +5,7 @@ class AppConfig
 {
     public string $rootPath = '';
     public string $serverPath = '';
-    public array $configPath;
-    public array $includesPath;
     public array $templatesPath;
-    public array $cssPath;
-    public array $jsPath;
-    public array $imagesPath;
-    public array $nodePaths;
 
     //
     public PDO $connection;
@@ -41,25 +35,8 @@ class AppConfig
             //__DIR__."../";
             //realpath(dirname(__FILE__)."/.."); //$_SERVER['DOCUMENT_ROOT'];
             $this->serverPath = '\\\\'.$_SERVER['HTTP_HOST'].'\\Questionnaire';
-            /*$this->configPath = $this->rootPath . "\\constants\\";
-            $this->includesPath = $this->rootPath . "\\includes\\";
-            $this->templatesPath = $this->rootPath . "\\templates\\";
-            $this->cssPath = $this->rootPath . "\\assets\\css\\";
-            $this->jsPath = $this->rootPath . "\\assets\\js\\";
-            $this->imagesPath = $this->rootPath . "\\assets\\images\\";*/
             //TODO: update modify, просто присваивать
-            $this->configPath = self::getFileConnections("\\src\\");
-            $this->includesPath = self::getFileConnections("\\includes\\");
             $this->templatesPath = self::getFileConnections("\\templates\\");
-            $this->cssPath = self::getFileConnections("\\assets\\css\\");
-            $this->jsPath = self::getFileConnections("\\assets\\js\\");
-            $this->imagesPath = self::getFileConnections("\\assets\\images\\");
-
-            $this->nodePaths = [ //TODO: add autodetect modules
-                'bootstrap.js' => "\\\\".$this->rootPath.'\\node_modules\\bootstrap\\dist\\js\\bootstrap.min.js',
-                'bootstrap.css' =>  "\\\\".$this->rootPath.'\\node_modules\\bootstrap\\dist\\css\\bootstrap.min.css',
-                'jquery.js' =>  "\\\\".$this->rootPath.'\\node_modules\\jquery\\dist\\jquery.min.js',
-            ];
 
             $this->connection = DBConfig::getDBInstance();
         }

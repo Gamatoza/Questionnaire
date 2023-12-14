@@ -23,7 +23,7 @@ $cfg = AppConfig::getInstance();
 </script>
 <?php include $cfg->templatesPath["header.php"]?>
 <body>
-<form id="form" method="post" action="../includes/test_checker.php" name="sign-form">
+<form id="form" method="post" action="../includes/test_form_handler.php" name="sign-form">
     <div class="container-fluid text-left">
         <div class="row">
             <div class="col-md-12 text-center pt-3 pb-3"><b>ЛИЧНЫЕ ДАННЫЕ</b></div>
@@ -243,8 +243,8 @@ $cfg = AppConfig::getInstance();
                     <select class="form-select border-0" name="isagree_position" aria-label="Small select example"
                             required>
                         <option selected></option>
-                        <option value="True">Да</option>
-                        <option value="False">Нет</option>
+                        <option value="1">Да</option>
+                        <option value="0">Нет</option>
                     </select>
                 </div>
             </div>
@@ -257,8 +257,8 @@ $cfg = AppConfig::getInstance();
                     <select class="form-select border-0" name="isagree_removal" aria-label="Small select example"
                             required>
                         <option selected></option>
-                        <option value="True">Да</option>
-                        <option value="False">Нет</option>
+                        <option value="1">Да</option>
+                        <option value="0">Нет</option>
                     </select>
                 </div>
             </div>

@@ -5,6 +5,34 @@ $conn = $cfg->connection;
 
 class Utils
 {
+    //TODO: add bind only by FromPOST has values
+    public static function bindMultiplyValue(PDO $connection, $sql_query, array $params): false|PDOStatement
+    {
+        $matches = [];
+        $regex = "\"(?<=:)\w*\"";
+
+        $stmt = $connection->prepare($sql_query);
+        preg_match_all($regex,$sql_query,$matches);
+        for ($i = 0; $i < count($matches[0]); $i++)
+        {
+            $stmt->bindValue($matches[0][$i],$params[$i]);
+        }
+        return $stmt;
+    }
+    public static function bindMultiplyValue_FromPOST(PDO $connection, $sql_query): false|PDOStatement
+    {
+        $matches = [];
+        $regex = "\"(?<=:)\w*\"";
+
+        $stmt = $connection->prepare($sql_query);
+        preg_match_all($regex,$sql_query,$matches);
+        foreach ($matches[0] as $value)
+        {
+            $stmt->bindValue($value,$_POST[$value]);
+        }
+        return $stmt;
+    }
+
     public static function addOptions(string $from, $selected_option = ''): void
     {
         if($selected_option === '')

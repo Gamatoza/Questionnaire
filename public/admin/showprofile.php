@@ -26,13 +26,15 @@ $data = $query->fetch();
     <!--TODO: Подумать как можно будет переделать isdis, ибо убирается значение-->
 </head>
 <script>
+    //TODO: Add script adding name if input changed, so POST can has only needed values, check TODO in src/Utils.php
     $(() => {
         $("input").prop("autocomplete", "off"); //TODO: add it in every element manually
     });
 </script>
 <?php include $cfg->templatesPath["header.php"] ?>
 <body>
-<form id="form" method="post" action="#" name="sign-form"> <!--TODO: add action php to change, ajax-->
+<form id="form" method="post" action="../../includes/update_form_handler.php" name="sign-form"> <!--TODO: add action php to change, ajax-->
+    <input name="id" value="<?=$id?>" hidden> <!--TODO: убрать этот костыль-->
     <div class="container-fluid text-left">
         <div class="row">
             <div class="col-md-12 text-center pt-3 pb-3"><b>ЛИЧНЫЕ ДАННЫЕ</b></div>
@@ -240,10 +242,9 @@ $data = $query->fetch();
                     выбрать)
                 </div>
                 <div class="col-lg-7 col-md-7 col-sm-12">
-                    <select class="form-select border-0" name="isagree_position" aria-label="Small select example"
-                            >
-                        <option value="True" <?= $data['isagree_removal'] ? 'selected' : '' ?>>Да</option>
-                        <option value="False" <?= $data['isagree_removal'] ? 'selected' : '' ?>>Нет</option>
+                    <select class="form-select border-0" name="isagree_position" aria-label="Small select example">
+                        <option value="1" <?= $data['isagree_position'] == 1 ? 'selected' : '' ?>>Да</option> <!-- TODO Подумать как лучше сделать будет с Да Нет выводом -->
+                        <option value="0" <?= $data['isagree_position'] == 0 ? 'selected' : '' ?>>Нет</option>
                     </select>
                 </div>
             </div>
@@ -253,10 +254,9 @@ $data = $query->fetch();
                     выбрать)
                 </div>
                 <div class="col-lg-7 col-md-7 col-sm-12">
-                    <select class="form-select border-0" name="isagree_removal" aria-label="Small select example"
-                            >
-                        <option value="True" <?= $data['isagree_removal'] ? 'selected' : '' ?>>Да</option>
-                        <option value="False" <?= $data['isagree_removal'] ? 'selected' : '' ?>>Нет</option>
+                    <select class="form-select border-0" name="isagree_removal" aria-label="Small select example">
+                        <option value="1" <?= $data['isagree_removal'] == 1 ? 'selected' : '' ?>>Да</option> <!-- TODO Подумать как лучше сделать будет с Да Нет выводом -->
+                        <option value="0" <?= $data['isagree_removal'] == 0 ? 'selected' : '' ?>>Нет</option>
                     </select>
                 </div>
             </div>
