@@ -1,4 +1,7 @@
 <?php
+if(isset($_SESSION['uid']))
+    header("location: index.php");
+
 require '../../vendor/autoload.php';
 $cfg = AppConfig::getInstance();
 $conn = $cfg->connection;
