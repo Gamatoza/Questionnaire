@@ -82,7 +82,7 @@ $cfg = AppConfig::getInstance();
             <div class="col-lg-5 col-md-5 col-sm-12 border-end"><b>Адрес места жительства</b></div>
             <div class="col-lg-7 col-md-7 col-sm-12">
                 <div class="input-group">
-                    <input type="text" name="person[address]" class="form-control border-0" required>
+                    <input type="text" name="person[address]" class="form-control border-0" placeholder="Город, Улица, Дом, Квартира (корпус)" required>
                 </div>
             </div>
         </div>
