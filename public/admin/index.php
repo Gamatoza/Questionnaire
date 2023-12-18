@@ -51,6 +51,7 @@ foreach ($fio as $value) {
     $(document).ready(function () {
         getinfo();
         $("#search").keyup(getinfo);
+        $("form-check-input").onchange(getinfo);
     });
 </script>
 
@@ -59,13 +60,32 @@ foreach ($fio as $value) {
 <body>
 <div class="container">
     <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-12 row">
             <h2>Поиск пользователей</h2>
             <input type="text" name="search" id="search" autocomplete="off" placeholder="Поиск....">
-            <div id="output"></div>
         </div>
     </div>
+
+    <div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1"/>
+            <label class="form-check-label" for="inlineCheckbox1">ФИО</label>
+        </div>
+
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2"/>
+            <label class="form-check-label" for="inlineCheckbox2">Адрес</label>
+        </div>
+
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3" disabled/>
+            <label class="form-check-label" for="inlineCheckbox3"></label>
+        </div>
+    </div>
+
+    <div id="output"></div>
 </div>
+
 
 
 </body>
