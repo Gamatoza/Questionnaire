@@ -131,7 +131,7 @@ foreach ($fio as $value) {
                             </div>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="citizenship">
+                            <input class="form-check-input" type="checkbox" value="" id="citizenship" data-bs-toggle="collapse" data-bs-target="#XYI">
                             <label class="form-check-label" for="citizenship" data-bs-toggle="collapse"
                                    data-bs-target="#XYI">Гражданство</label>
                             <div class="collapse" id="XYI">
@@ -139,7 +139,7 @@ foreach ($fio as $value) {
                             </div>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="accommodations">
+                            <input class="form-check-input" type="checkbox" value="" id="accommodations" data-bs-toggle="collapse" data-bs-target="#XYI">
                             <label class="form-check-label" for="accommodations" data-bs-toggle="collapse"
                                    data-bs-target="#XYI">Условия проживания</label>
                             <div class="collapse" id="XYI">
@@ -147,7 +147,7 @@ foreach ($fio as $value) {
                             </div>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="birthplace">
+                            <input class="form-check-input" type="checkbox" value="" id="birthplace" data-bs-toggle="collapse" data-bs-target="#XYI">
                             <label class="form-check-label" for="birthplace" data-bs-toggle="collapse"
                                    data-bs-target="#XYI">
                                 Место рождения
@@ -161,7 +161,7 @@ foreach ($fio as $value) {
                     <div class="col">
                         <label class="form-label">Личные данные</label>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="phone">
+                            <input class="form-check-input" type="checkbox" value="" id="phone" data-bs-toggle="collapse" data-bs-target="#XYI">
                             <label class="form-check-label" for="phone" data-bs-toggle="collapse" data-bs-target="#XYI">
                                 Мобильный телефон
                             </label>
@@ -171,7 +171,7 @@ foreach ($fio as $value) {
                         </div>
 
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="birthdate">
+                            <input class="form-check-input" type="checkbox" value="" id="birthdate" data-bs-toggle="collapse" data-bs-target="#XYI">
                             <label class="form-check-label" for="birthdate" data-bs-toggle="collapse"
                                    data-bs-target="#XYI">
                                 Дата рождения
@@ -188,7 +188,7 @@ foreach ($fio as $value) {
                     <div class="col">
                         <label class="form-label">Состав семьи</label>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="child">
+                            <input class="form-check-input" type="checkbox" value="" id="child" data-bs-toggle="collapse" data-bs-target="#XYI">
                             <label class="form-check-label" for="child" data-bs-toggle="collapse" data-bs-target="#XYI">
                                 Дети
                             </label>
@@ -197,7 +197,7 @@ foreach ($fio as $value) {
                             </div>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="spouse">
+                            <input class="form-check-input" type="checkbox" value="" id="spouse" data-bs-toggle="collapse" data-bs-target="#XYI">
                             <label class="form-check-label" for="spouse" data-bs-toggle="collapse"
                                    data-bs-target="#XYI">
                                 Супруг(а)
@@ -207,7 +207,7 @@ foreach ($fio as $value) {
                             </div>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="solo">
+                            <input class="form-check-input" type="checkbox" value="" id="solo" data-bs-toggle="collapse" data-bs-target="#XYI">
                             <label class="form-check-label" for="solo" data-bs-toggle="collapse" data-bs-target="#XYI">
                                 Один
                             </label>
@@ -220,7 +220,7 @@ foreach ($fio as $value) {
                     <div class="col">
                         <label class="form-label ">Образование</label>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="education_type">
+                            <input class="form-check-input" type="checkbox" value="" id="education_type" data-bs-toggle="collapse" data-bs-target="#XYI">
                             <label class="form-check-label" for="education_type" data-bs-toggle="collapse"
                                    data-bs-target="#XYI">
                                 Образование
@@ -230,7 +230,7 @@ foreach ($fio as $value) {
                             </div>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="education">
+                            <input class="form-check-input" type="checkbox" value="" id="education" data-bs-toggle="collapse" data-bs-target="#XYI">
                             <label class="form-check-label" for="education" data-bs-toggle="collapse"
                                    data-bs-target="#XYI">
                                 Окончил
