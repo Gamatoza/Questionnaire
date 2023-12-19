@@ -54,41 +54,261 @@ foreach ($fio as $value) {
         $("form-check-input").onchange(getinfo);
 
     });
+
+    let array = ['personal_block', 'workork_block', 'skills_block']
+
+    function showMenu(menu_id) {
+        $('#' + menu_id).removeAttr('hidden');
+        let intersection = array.filter(x => x !== menu_id);
+        intersection.forEach((el) => {
+            $('#' + el).attr('hidden', true);
+        });
+    }
+
+    function addFieldNearby(field_id) {
+        if (this.checked()) {
+            $('#' + field_id).removeAttr('hidden');
+        } else {
+            let value = $('#' + field_id).attr('hidden', true).val('');
+            sessionStorage.setItem(field_id, value);
+        }
+    }
 </script>
 
 <?php include $cfg->templatesPath["header.php"] ?>
 
 <body>
 <div class="container">
-    <div class="row">
-        <div class="col-lg-12 row">
-            <h2>Поиск пользователей</h2>
-            <input type="text" name="search" id="search" autocomplete="off" placeholder="Поиск....">
+    <div class="col">
+        <div class="row">
+            <div class="col-lg-12 row">
+                <h2>Поиск пользователей</h2>
+                <input type="text" name="search" id="search" autocomplete="off" placeholder="Поиск....">
+            </div>
+        </div>
+        <!--TODO: перенести в блоки -->
+        <div class="row">
+            <div class="col-lg-12 row">
+                <button class="btn btn-primary btn-dark" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#ddd"
+                        aria-expanded="false" aria-controls="collapseExample">
+                    Расширенный поиск
+                </button>
+            </div>
         </div>
     </div>
+    <div class="collapse" id="ddd">
+        <div class="card card-body col-12 row">
+            <div id="personal_block">
+                <!--Upper-->
+                <div class="row">
+                    <!--Left-->
+                    <div class="col">
+                        <label class="form-label">Местоположение</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="address">
+                            <label class="form-check-label" for="address">
+                                Адрес
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="citizenship">
+                            <label class="form-check-label" for="citizenship">
+                                Гражданство
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="accommodations">
+                            <label class="form-check-label" for="accommodations">
+                                Условия проживания
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="birthplace">
+                            <label class="form-check-label" for="birthplace">
+                                Место рождения
+                            </label>
+                        </div>
+                    </div>
+                    <!--Right-->
+                    <div class="col">
+                        <label class="form-label">Личные данные</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="phone">
+                            <label class="form-check-label" for="phone">
+                                Мобильный телефон
+                            </label>
+                        </div>
 
-    <div>
-        <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1"/>
-            <label class="form-check-label" for="inlineCheckbox1">ФИО</label>
-        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="birthdate">
+                            <label class="form-check-label" for="birthdate">
+                                Дата рождения
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <!--Second-->
+                <div class="row">
+                    <!--Left-->
+                    <div class="col">
+                        <label class="form-label">Состав семьи</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="child">
+                            <label class="form-check-label" for="child">
+                                Дети
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="spouse">
+                            <label class="form-check-label" for="spouse">
+                                Супруг(а)
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="solo">
+                            <label class="form-check-label" for="solo">
+                                Один
+                            </label>
+                        </div>
+                    </div>
+                    <!--Right-->
+                    <div class="col">
+                        <label class="form-label ">Образование</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="education_type">
+                            <label class="form-check-label" for="education_type">
+                                Образование
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="education">
+                            <label class="form-check-label" for="education">
+                                Окончил
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="workork_block" hidden="hidden">
+                <div class="col">
+                    text
+                </div>
+                <div class="col">
+                    <p>some2</p>
+                </div>
+            </div>
+            <div id="skills_block" hidden="hidden">
+                <!--Upper-->
+                <div class="row">
+                    <!--Left-->
+                    <div class="col">
+                        <label class="form-label">Местоположение</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="address">
+                            <label class="form-check-label" for="address">
+                                Адрес
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="citizenship">
+                            <label class="form-check-label" for="citizenship">
+                                Гражданство
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="accommodations">
+                            <label class="form-check-label" for="accommodations">
+                                Условия проживания
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="birthplace">
+                            <label class="form-check-label" for="birthplace">
+                                Место рождения
+                            </label>
+                        </div>
+                    </div>
+                    <!--Right-->
+                    <div class="col">
+                        <label class="form-label">Личные данные</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="phone">
+                            <label class="form-check-label" for="phone">
+                                Мобильный телефон
+                            </label>
+                        </div>
 
-        <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2"/>
-            <label class="form-check-label" for="inlineCheckbox2">Адрес</label>
-        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="birthdate">
+                            <label class="form-check-label" for="birthdate">
+                                Дата рождения
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <!--Second-->
+                <div class="row">
+                    <!--Left-->
+                    <div class="col">
+                        <label class="form-label">Состав семьи</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="child">
+                            <label class="form-check-label" for="child">
+                                Дети
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="spouse">
+                            <label class="form-check-label" for="spouse">
+                                Супруг(а)
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="solo">
+                            <label class="form-check-label" for="solo">
+                                Один
+                            </label>
+                        </div>
+                    </div>
+                    <!--Right-->
+                    <div class="col">
+                        <label class="form-label ">Образование</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="education_type">
+                            <label class="form-check-label" for="education_type">
+                                Образование
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="education">
+                            <label class="form-check-label" for="education">
+                                Окончил
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Bottom-->
+            <div class="row">
+                <div class="btn-group d-flex flex-column flex-md-row flex-lg-row" role="group" aria-label="Basic mixed styles example">
+                    <input type="radio" class="btn-check" name="btnradio" id="btnradio1"
+                           autocomplete="off" onchange="showMenu('personal_block')" checked>
+                    <label class="btn btn-outline-dark btn-outline-primary" for="btnradio1">Личные данные</label>
 
-        <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3" disabled/>
-            <label class="form-check-label" for="inlineCheckbox3"></label>
+                    <input type="radio" class="btn-check" name="btnradio" id="btnradio2"
+                           autocomplete="off" onchange="showMenu('workork_block')">
+                    <label class="btn btn-outline-dark btn-outline-primary" for="btnradio2">Работа</label>
+
+                    <input type="radio" class="btn-check" name="btnradio" id="btnradio3"
+                           autocomplete="off" onchange="showMenu('skills_block')">
+                    <label class="btn btn-outline-dark btn-outline-primary" for="btnradio3">Качества</label>
+                </div>
+            </div>
         </div>
     </div>
 
     <div id="output"></div>
-
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Открыть модальное окно для @mdo</button>
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@fat">Открыть модальное окно для @fat</button>
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">Открыть модальное окно для @getbootstrap</button>
 
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -117,7 +337,6 @@ foreach ($fio as $value) {
         </div>
     </div>
 </div>
-
 
 
 </body>
