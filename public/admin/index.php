@@ -55,7 +55,7 @@ foreach ($fio as $value) {
 
     });
 
-    let array = ['personal_block', 'workork_block', 'skills_block']
+    let array = ['personal_block', 'workork_block', 'skills_block'];
 
     function showMenu(menu_id) {
         $('#' + menu_id).removeAttr('hidden');
@@ -123,7 +123,7 @@ foreach ($fio as $value) {
                     <div class="col">
                         <label class="form-label">Местоположение</label>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="address">
+                            <input class="form-check-input" type="checkbox" value="" id="address" data-bs-toggle="collapse" data-bs-target="#XYI">
                             <label class="form-check-label" for="address" data-bs-toggle="collapse"
                                    data-bs-target="#XYI">Адрес</label>
                             <div class="collapse" id="XYI">
