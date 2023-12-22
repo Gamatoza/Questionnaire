@@ -49,9 +49,9 @@ foreach ($fio as $value) {
     }
 
     $(document).ready(function () {
-        getinfo();
         $("#search").keyup(getinfo);
         $("form-check-input").onchange(getinfo);
+        getinfo();
 
     });
 
@@ -123,36 +123,43 @@ foreach ($fio as $value) {
                     <div class="col">
                         <label class="form-label">Местоположение</label>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="address" data-bs-toggle="collapse" data-bs-target="#XYI">
+                            <input class="form-check-input" type="checkbox" value="" id="address"
+                                   data-bs-toggle="collapse" data-bs-target="#address_input">
                             <label class="form-check-label" for="address" data-bs-toggle="collapse"
-                                   data-bs-target="#XYI">Адрес</label>
-                            <div class="collapse" id="XYI">
+                                   data-bs-target="#address_input">Адрес</label>
+                            <div class="collapse" id="address_input">
                                 <label><input type="text" class="form-control"></label>
                             </div>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="citizenship" data-bs-toggle="collapse" data-bs-target="#XYI">
+                            <input class="form-check-input" type="checkbox" value="" id="citizenship"
+                                   data-bs-toggle="collapse" data-bs-target="#citizenship_input">
                             <label class="form-check-label" for="citizenship" data-bs-toggle="collapse"
-                                   data-bs-target="#XYI">Гражданство</label>
-                            <div class="collapse" id="XYI">
-                                <label><input type="text" class="form-control"></label>
+                                   data-bs-target="#citizenship_input">Гражданство</label>
+                            <div class="collapse" id="citizenship_input">
+                                <label for="citizenship_input">
+                                <select class="form-select border-0" name="person[citizenship_id]" aria-label="Small select example" required>
+                                    <?php Utils::addOptions('citizenship'); ?> <!--TODO: Check how it works with AJAX-->
+                                </select></label>
                             </div>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="accommodations" data-bs-toggle="collapse" data-bs-target="#XYI">
+                            <input class="form-check-input" type="checkbox" value="" id="accommodations"
+                                   data-bs-toggle="collapse" data-bs-target="#accommodations_input">
                             <label class="form-check-label" for="accommodations" data-bs-toggle="collapse"
-                                   data-bs-target="#XYI">Условия проживания</label>
-                            <div class="collapse" id="XYI">
+                                   data-bs-target="#accommodations_input">Условия проживания</label>
+                            <div class="collapse" id="accommodations_input">
                                 <label><input type="text" class="form-control"></label>
                             </div>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="birthplace" data-bs-toggle="collapse" data-bs-target="#XYI">
+                            <input class="form-check-input" type="checkbox" value="" id="birthplace"
+                                   data-bs-toggle="collapse" data-bs-target="#birthplace_input">
                             <label class="form-check-label" for="birthplace" data-bs-toggle="collapse"
-                                   data-bs-target="#XYI">
+                                   data-bs-target="#birthplace_input">
                                 Место рождения
                             </label>
-                            <div class="collapse" id="XYI">
+                            <div class="collapse" id="birthplace_input">
                                 <label><input type="text" class="form-control"></label>
                             </div>
                         </div>
@@ -161,22 +168,25 @@ foreach ($fio as $value) {
                     <div class="col">
                         <label class="form-label">Личные данные</label>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="phone" data-bs-toggle="collapse" data-bs-target="#XYI">
-                            <label class="form-check-label" for="phone" data-bs-toggle="collapse" data-bs-target="#XYI">
+                            <input class="form-check-input" type="checkbox" value="" id="phone"
+                                   data-bs-toggle="collapse" data-bs-target="#phone_input">
+                            <label class="form-check-label" for="phone" data-bs-toggle="collapse"
+                                   data-bs-target="#phone_input">
                                 Мобильный телефон
                             </label>
-                            <div class="collapse" id="XYI">
+                            <div class="collapse" id="phone_input">
                                 <label><input type="text" class="form-control"></label>
                             </div>
                         </div>
 
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="birthdate" data-bs-toggle="collapse" data-bs-target="#XYI">
+                            <input class="form-check-input" type="checkbox" value="" id="birthdate"
+                                   data-bs-toggle="collapse" data-bs-target="#birthdate_input">
                             <label class="form-check-label" for="birthdate" data-bs-toggle="collapse"
-                                   data-bs-target="#XYI">
+                                   data-bs-target="#birthdate_input">
                                 Дата рождения
                             </label>
-                            <div class="collapse" id="XYI">
+                            <div class="collapse" id="birthdate_input">
                                 <label><input type="text" class="form-control"></label>
                             </div>
                         </div>
@@ -188,30 +198,35 @@ foreach ($fio as $value) {
                     <div class="col">
                         <label class="form-label">Состав семьи</label>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="child" data-bs-toggle="collapse" data-bs-target="#XYI">
-                            <label class="form-check-label" for="child" data-bs-toggle="collapse" data-bs-target="#XYI">
+                            <input class="form-check-input" type="checkbox" value="" id="child"
+                                   data-bs-toggle="collapse" data-bs-target="#child_input">
+                            <label class="form-check-label" for="child" data-bs-toggle="collapse"
+                                   data-bs-target="#child_input">
                                 Дети
                             </label>
-                            <div class="collapse" id="XYI">
+                            <div class="collapse" id="child_input">
                                 <label><input type="text" class="form-control"></label>
                             </div>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="spouse" data-bs-toggle="collapse" data-bs-target="#XYI">
+                            <input class="form-check-input" type="checkbox" value="" id="spouse"
+                                   data-bs-toggle="collapse" data-bs-target="#spouse_input">
                             <label class="form-check-label" for="spouse" data-bs-toggle="collapse"
-                                   data-bs-target="#XYI">
+                                   data-bs-target="#spouse_input">
                                 Супруг(а)
                             </label>
-                            <div class="collapse" id="XYI">
+                            <div class="collapse" id="spouse_input">
                                 <label><input type="text" class="form-control"></label>
                             </div>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="solo" data-bs-toggle="collapse" data-bs-target="#XYI">
-                            <label class="form-check-label" for="solo" data-bs-toggle="collapse" data-bs-target="#XYI">
+                            <input class="form-check-input" type="checkbox" value="" id="solo" data-bs-toggle="collapse"
+                                   data-bs-target="#solo_input">
+                            <label class="form-check-label" for="solo" data-bs-toggle="collapse"
+                                   data-bs-target="#solo_input">
                                 Один
                             </label>
-                            <div class="collapse" id="XYI">
+                            <div class="collapse" id="solo_input">
                                 <label><input type="text" class="form-control"></label>
                             </div>
                         </div>
@@ -220,22 +235,24 @@ foreach ($fio as $value) {
                     <div class="col">
                         <label class="form-label ">Образование</label>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="education_type" data-bs-toggle="collapse" data-bs-target="#XYI">
+                            <input class="form-check-input" type="checkbox" value="" id="education_type"
+                                   data-bs-toggle="collapse" data-bs-target="#education_type_input">
                             <label class="form-check-label" for="education_type" data-bs-toggle="collapse"
-                                   data-bs-target="#XYI">
+                                   data-bs-target="#education_type_input">
                                 Образование
                             </label>
-                            <div class="collapse" id="XYI">
+                            <div class="collapse" id="education_type_input">
                                 <label><input type="text" class="form-control"></label>
                             </div>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="education" data-bs-toggle="collapse" data-bs-target="#XYI">
+                            <input class="form-check-input" type="checkbox" value="" id="education"
+                                   data-bs-toggle="collapse" data-bs-target="#education_input">
                             <label class="form-check-label" for="education" data-bs-toggle="collapse"
-                                   data-bs-target="#XYI">
+                                   data-bs-target="#education_input">
                                 Окончил
                             </label>
-                            <div class="collapse" id="XYI">
+                            <div class="collapse" id="education_input">
                                 <label><input type="text" class="form-control"></label>
                             </div>
                         </div>
@@ -243,7 +260,7 @@ foreach ($fio as $value) {
                 </div>
                 <div class="row mt-3">
                     <div class="col-lg-12 row">
-                        <button class="btn btn-primary">Прмиенить</button>
+                        <button class="btn btn-primary">Применить</button>
                     </div>
                 </div>
             </div>
