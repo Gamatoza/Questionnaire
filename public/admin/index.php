@@ -49,9 +49,9 @@ foreach ($fio as $value) {
     }
 
     $(document).ready(function () {
+        getinfo();
         $("#search").keyup(getinfo);
         $("form-check-input").onchange(getinfo);
-        getinfo();
 
     });
 
