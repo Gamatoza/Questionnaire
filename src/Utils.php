@@ -53,6 +53,7 @@ class Utils
     {
         if ($selected_option === '')
             echo "<option selected></option>";
+        else echo "<option></option>";
         $result = AppConfig::getInstance()->connection->query("SELECT * FROM questionnaire." . $from); //TODO обрамить SQLку
         while ($row = $result->fetch()) {
             $name = $row["name"];
