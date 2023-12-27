@@ -18,6 +18,7 @@ if (!isset($_SESSION['uid']) or $_SESSION['uid'] == -1)
     <script type="text/javascript" src="../../node_modules/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="../../assets/js/elements-scripts.js"></script>
     <title>Опросник</title>
+    <script type="text/javascript" src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
     <script type="text/javascript" src="../../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../../assets/js/soft-search.js"></script>
 
@@ -470,7 +471,22 @@ if (!isset($_SESSION['uid']) or $_SESSION['uid'] == -1)
 
             </div>
 
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Заголовок модального окна</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                        </div>
+                        <div class="modal-body" id="modal-body">
 
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Закрыть</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 

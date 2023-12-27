@@ -51,6 +51,7 @@ if (isset($_POST['data'])) {
         echo "<p style='color:red'>Мягкая выборка ничего не нашла...</p>";
     } else {
         foreach ($info as $value) {
+            //data-bs-toggle='modal' data-bs-target='#exampleModal' for modal
             echo "<div class='container-fluid'>
                 <div class='row'>
                     <div class='form-control text-decoration-none mt-2 ms-1 shadow' >
@@ -58,12 +59,11 @@ if (isset($_POST['data'])) {
                         <span class='float-end ps-2'><img src='../../assets/img/pencil-square.svg' width='20' height='20' alt=''></span>
                         <span class='float-end'><img src='../../assets/img/printer.svg' width='20' height='20' alt=''></span>
                         
-                            <span class='float-end' style='margin-right: 50px; fill: #ed6866; cursor:pointer;' onclick='alert(123);'>
+                            <span class='float-end' style='margin-right: 50px; fill: #ed6866; cursor:pointer;' data-bs-toggle='popover' title='Заголовок всплывающего сообщения' data-bs-content='А вот и потрясающий контент. Это очень интересно. Правильно?'>
                             Частичное совпадние 
                             <img src='../../assets/img/halffinded.svg' width='20' height='20' alt='' title='Раскрыть список'>
                             </span>
                         </div>
-                        
                     </div>  
                 </div>
             </div>";
