@@ -45,15 +45,14 @@ function setdata() {
     return all_data;
 }
 
-function softSearch() {
+function softSearch(_id) {
     $.ajax({
         url: '../../includes/soft_search.php',
         method: 'POST',
         cache: false,
-        data: {data: _data, id: this.id}, //mb send just _data but... idk
+        data: {data: _data, id: _id},
         success: function (data) {
-            $('#some_modal_output').html(data);
-            $('#some_modal_output').css('display', 'block');
+            $('#modal-body').html(data);
         }
     });
 }

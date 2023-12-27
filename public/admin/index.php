@@ -18,7 +18,6 @@ if (!isset($_SESSION['uid']) or $_SESSION['uid'] == -1)
     <script type="text/javascript" src="../../node_modules/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="../../assets/js/elements-scripts.js"></script>
     <title>Опросник</title>
-    <script type="text/javascript" src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
     <script type="text/javascript" src="../../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../../assets/js/soft-search.js"></script>
 
@@ -68,7 +67,6 @@ if (!isset($_SESSION['uid']) or $_SESSION['uid'] == -1)
 <?php include $cfg->templatesPath["header.php"] ?>
 
 <body>
-
 
 <div class="container-fluid">
     <div class="row">
@@ -162,10 +160,10 @@ if (!isset($_SESSION['uid']) or $_SESSION['uid'] == -1)
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" value="" id="citizenship"
-                                           data-bs-toggle="collapse" data-bs-target="#citizenship_id">
+                                           data-bs-toggle="collapse" data-bs-target="#citizenship_id_id">
                                     <label class="form-check-label" for="citizenship" data-bs-toggle="collapse"
                                            data-bs-target="#citizenship_id">Гражданство</label>
-                                    <div class="collapse" id="citizenship_id">
+                                    <div class="collapse" id="citizenship_id_id">
                                         <select class="form-select" name="citizenship_id"
                                                 aria-label="Small select example">
                                             <?php Utils::addOptions('citizenship'); ?>
@@ -175,10 +173,10 @@ if (!isset($_SESSION['uid']) or $_SESSION['uid'] == -1)
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" value="" id="accommodations"
-                                           data-bs-toggle="collapse" data-bs-target="#accommodations_id">
+                                           data-bs-toggle="collapse" data-bs-target="#accommodations_id_id">
                                     <label class="form-check-label" for="accommodations" data-bs-toggle="collapse"
                                            data-bs-target="#accommodations_id">Условия проживания</label>
-                                    <div class="form-check-label  collapse" id="accommodations_id">
+                                    <div class="form-check-label  collapse" id="accommodations_id_id">
                                         <select class="form-select"
                                                 aria-label="Small select example">
                                             <?php Utils::addOptions('accommodations'); ?>
@@ -282,12 +280,12 @@ if (!isset($_SESSION['uid']) or $_SESSION['uid'] == -1)
                                 <label class="form-label ">Образование</label>
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" value="" id="education"
-                                           data-bs-toggle="collapse" data-bs-target="#education_id">
+                                           data-bs-toggle="collapse" data-bs-target="#education_id_id">
                                     <label class="form-check-label" for="education" data-bs-toggle="collapse"
                                            data-bs-target="#education_id">
                                         Образование
                                     </label>
-                                    <div class="collapse" id="education_id">
+                                    <div class="collapse" id="education_id_id">
                                         <select class="form-select"
                                                 aria-label="Small select example">
                                             <?php Utils::addOptions('education'); ?>
@@ -472,7 +470,7 @@ if (!isset($_SESSION['uid']) or $_SESSION['uid'] == -1)
             </div>
 
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
+                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">Заголовок модального окна</h5>
