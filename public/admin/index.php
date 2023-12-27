@@ -16,58 +16,13 @@ if (!isset($_SESSION['uid']) or $_SESSION['uid'] == -1)
           integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="../../assets/css/style.css">
     <script type="text/javascript" src="../../node_modules/jquery/dist/jquery.min.js"></script>
-    <script type="text/javascript" src="../../assets/js/elements_scripts.js"></script>
+    <script type="text/javascript" src="../../assets/js/elements-scripts.js"></script>
     <title>Опросник</title>
     <script type="text/javascript" src="../../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../assets/js/soft-search.js"></script>
 
 </head>
 <script type="text/javascript">
-
-
-    function getinfo() {
-        let _data = {};
-        _data = setdata();
-        _data['fio_input'] = $("#search").val();
-        if (Object.keys(_data).length) {
-            $.ajax({
-                url: '../../includes/search_form.php',
-                method: 'POST',
-                cache: false,
-                data: {data: _data}, //mb send just _data but... idk
-                success: function (data) {
-                    $('#output').html(data);
-                    $('#output').css('display', 'block');
-                }
-            });
-        } else {
-            $('#output').css('display', 'none');
-        }
-    }
-
-
-    function setdata() {
-        var all_data = {};
-        $('input.form-check-input[data-bs-target]').each(function () {
-            var name = $(this).attr("data-bs-target").replace('#', '');
-            var inputs = $('#' + name).find('input');
-            if (inputs.length <= 0)
-                inputs = $('#' + name).find('select');
-
-            if ($(this).is(':checked')) {
-                if (inputs.length === 1) {
-                    all_data[name] = inputs[0].value;
-                } else { //add method to add un all_data, recursive
-                    var buf = {};
-                    var array = Array.from(inputs);
-                    for (let i = 0; i < array.length; i++) {
-                        buf[array[i].name] = array[i].value;
-                    }
-                    all_data[name] = buf;
-                }
-            }
-        });
-        return all_data;
-    }
 
     let array = ['personal_block', 'workorg_block', 'skills_block']
 
@@ -92,11 +47,19 @@ if (!isset($_SESSION['uid']) or $_SESSION['uid'] == -1)
         //getinfo();
         //$("#search").keyup(getinfo);
         //$("input").keyup(getinfo);
-        $("#search").keyup(function (event) {
+        $("input").keyup(function (event) {
             if (event.keyCode === 13) {
                 getinfo();
             }
         });
+
+        $.fn.disableSelection = function() {
+            return this
+                .attr('unselectable', 'on')
+                .css('user-select', 'none')
+                .on('selectstart', false);
+        };
+
         //$(".form-check-input").change(setdata);
     });
 </script>
@@ -203,7 +166,7 @@ if (!isset($_SESSION['uid']) or $_SESSION['uid'] == -1)
                                            data-bs-target="#citizenship_id">Гражданство</label>
                                     <div class="collapse" id="citizenship_id">
                                         <select class="form-select" name="citizenship_id"
-                                                aria-label="Small select example" required>
+                                                aria-label="Small select example">
                                             <?php Utils::addOptions('citizenship'); ?>
                                             <!--TODO: Check how it works with AJAX-->
                                         </select>
@@ -211,11 +174,15 @@ if (!isset($_SESSION['uid']) or $_SESSION['uid'] == -1)
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" value="" id="accommodations"
-                                           data-bs-toggle="collapse" data-bs-target="#accommodations_input">
+                                           data-bs-toggle="collapse" data-bs-target="#accommodations_id">
                                     <label class="form-check-label" for="accommodations" data-bs-toggle="collapse"
-                                           data-bs-target="#accommodations_input">Условия проживания</label>
-                                    <div class="form-check-label  collapse" id="accommodations_input">
-                                        <input type="text" class="form-control" name="accommodations_input">
+                                           data-bs-target="#accommodations_id">Условия проживания</label>
+                                    <div class="form-check-label  collapse" id="accommodations_id">
+                                        <select class="form-select"
+                                                aria-label="Small select example">
+                                            <?php Utils::addOptions('accommodations'); ?>
+                                            <!--TODO: Check how it works with AJAX-->
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="form-check">
@@ -226,7 +193,7 @@ if (!isset($_SESSION['uid']) or $_SESSION['uid'] == -1)
                                         Место рождения
                                     </label>
                                     <div class="collapse" id="birthplace_input">
-                                        <label><input type="text" class="form-control"></label>
+                                        <input type="text" class="form-control">
                                     </div>
                                 </div>
                             </div>
@@ -241,28 +208,28 @@ if (!isset($_SESSION['uid']) or $_SESSION['uid'] == -1)
                                         Мобильный телефон
                                     </label>
                                     <div class="collapse" id="phone_input">
-                                        <label><input type="text" class="form-control"></label>
+                                        <input type="text" class="form-control">
                                     </div>
                                 </div>
 
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="birthdate"
-                                           data-bs-toggle="collapse" data-bs-target="#birthdate_date">
-                                    <label class="form-check-label" for="birthdate" data-bs-toggle="collapse"
-                                           data-bs-target="#birthdate_date">
+                                    <input class="form-check-input" type="checkbox" value="" id="birthday"
+                                           data-bs-toggle="collapse" data-bs-target="#birthday_date">
+                                    <label class="form-check-label" for="birthday" data-bs-toggle="collapse"
+                                           data-bs-target="#birthday_date">
                                         Дата рождения
                                     </label>
-                                    <div class="collapse row" id="birthdate_date">
+                                    <div class="collapse row" id="birthday_date">
                                         <div class="col-lg-3">
-                                            <label class="form-check-label" for="birthdate_date_day">День</label>
+                                            <label class="form-check-label" for="birthday_date_day">День</label>
                                             <input type="text" name="day" class="form-control">
                                         </div>
                                         <div class="col-lg-3">
-                                            <label class="form-check-label" for="birthdate_date_month">Месяц</label>
+                                            <label class="form-check-label" for="birthday_date_month">Месяц</label>
                                             <input type="text" name="month" class="form-control">
                                         </div>
                                         <div class="col-lg-3">
-                                            <label class="form-check-label" for="birthdate_date_year">Год</label>
+                                            <label class="form-check-label" for="birthday_date_year">Год</label>
                                             <input type="text" name="year" class="form-control">
                                         </div>
                                     </div>
@@ -313,14 +280,17 @@ if (!isset($_SESSION['uid']) or $_SESSION['uid'] == -1)
                             <div class="col">
                                 <label class="form-label ">Образование</label>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="education_type"
-                                           data-bs-toggle="collapse" data-bs-target="#education_type_input">
-                                    <label class="form-check-label" for="education_type" data-bs-toggle="collapse"
-                                           data-bs-target="#education_type_input">
+                                    <input class="form-check-input" type="checkbox" value="" id="education"
+                                           data-bs-toggle="collapse" data-bs-target="#education_id">
+                                    <label class="form-check-label" for="education" data-bs-toggle="collapse"
+                                           data-bs-target="#education_id">
                                         Образование
                                     </label>
-                                    <div class="collapse" id="education_type_input">
-                                        <label><input type="text" class="form-control"></label>
+                                    <div class="collapse" id="education_id">
+                                        <select class="form-select"
+                                                aria-label="Small select example">
+                                            <?php Utils::addOptions('education'); ?>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="form-check">
@@ -360,32 +330,58 @@ if (!isset($_SESSION['uid']) or $_SESSION['uid'] == -1)
                                     </div>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="admission_date"
-                                           data-bs-toggle="collapse" data-bs-target="#admission_date_input">
-                                    <label class="form-check-label" for="admission_date" data-bs-toggle="collapse"
-                                           data-bs-target="#admission_date_input">Дата приема/увольнения</label>
-                                    <div class="collapse" id="admission_date_input">
-                                        <label><input type="text" class="form-control"></label>
+                                    <input class="form-check-input" type="checkbox" value="" id="admission"
+                                           data-bs-toggle="collapse" data-bs-target="#admission_date">
+                                    <label class="form-check-label" for="admission" data-bs-toggle="collapse"
+                                           data-bs-target="#admission_date">Дата приема/увольнения</label>
+                                    <div class="collapse row" id="admission_date">
+                                        <div class="col-lg-3">
+                                            <label class="form-check-label" for="admission_date_day">День</label>
+                                            <input type="text" name="day" class="form-control">
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <label class="form-check-label" for="admission_date_month">Месяц</label>
+                                            <input type="text" name="month" class="form-control">
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <label class="form-check-label" for="admission_date_year">Год</label>
+                                            <input type="text" name="year" class="form-control">
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="dismissal_date"
-                                           data-bs-toggle="collapse" data-bs-target="#dismissal_date_input">
-                                    <label class="form-check-label" for="dismissal_date" data-bs-toggle="collapse"
-                                           data-bs-target="#dismissal_date_input">Дата увольнения
+                                    <input class="form-check-input" type="checkbox" value="" id="dismissal"
+                                           data-bs-toggle="collapse" data-bs-target="#dismissal_date">
+                                    <label class="form-check-label" for="dismissal" data-bs-toggle="collapse"
+                                           data-bs-target="#dismissal_date">Дата увольнения
                                     </label>
-                                    <div class="collapse" id="dismissal_date_input">
-                                        <label><input type="text" class="form-control"></label>
+                                    <div class="collapse row" id="dismissal_date">
+                                        <div class="col-lg-3">
+                                            <label class="form-check-label" for="dismissal_date_day">День</label>
+                                            <input type="text" name="day" class="form-control">
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <label class="form-check-label" for="dismissal_date_month">Месяц</label>
+                                            <input type="text" name="month" class="form-control">
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <label class="form-check-label" for="dismissal_date_year">Год</label>
+                                            <input type="text" name="year" class="form-control">
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" value="" id="dismissal_reason_id"
-                                           data-bs-toggle="collapse" data-bs-target="#dismissal_reason_id_input">
+                                           data-bs-toggle="collapse" data-bs-target="#dismissal_reason_id_id">
                                     <label class="form-check-label" for="dismissal_reason_id" data-bs-toggle="collapse"
-                                           data-bs-target="#dismissal_reason_id_input">Причина уовльнения
+                                           data-bs-target="#dismissal_reason_id_id">Причина уовльнения
                                     </label>
-                                    <div class="collapse" id="dismissal_reason_id_input">
-                                        <label><input type="text" class="form-control"></label>
+                                    <div class="collapse" id="dismissal_reason_id_id">
+                                        <select class="form-select"
+                                                aria-label="Small select example">
+                                            <?php Utils::addOptions('dismissal_reason'); ?>
+                                            <!--TODO: Check how it works with AJAX-->
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -393,23 +389,26 @@ if (!isset($_SESSION['uid']) or $_SESSION['uid'] == -1)
                                 <label class="form-label">Работа в будущем</label>
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" value="" id="applypost_id"
-                                           data-bs-toggle="collapse" data-bs-target="#applypost_id_input">
+                                           data-bs-toggle="collapse" data-bs-target="#applypost_id_id">
                                     <label class="form-check-label" for="applypost_id" data-bs-toggle="collapse"
-                                           data-bs-target="#applypost_id_input">На какую должность претендует
+                                           data-bs-target="#applypost_id_id">На какую должность претендует
                                     </label>
-                                    <div class="collapse" id="applypost_id_input">
-                                        <label><input type="text" class="form-control"></label>
+                                    <div class="collapse" id="applypost_id_id">
+                                        <select class="form-select"
+                                                aria-label="Small select example">
+                                            <?php Utils::addOptions('applypost'); ?>
+                                            <!--TODO: Check how it works with AJAX-->
+                                        </select>
                                     </div>
                                 </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="isagree_position"
-                                           data-bs-toggle="collapse" data-bs-target="#isagree_position_input">
-                                    <label class="form-check-label" for="isagree_position">Согласен ли на рабочую
+                                <div class="form-check" id="isagree_position_choose">
+                                    <input class="form-check-input" type="checkbox"  onchange="this.value = +this.checked" data-bs-target="#isagree_position_choose" >
+                                    <label class="form-check-label" for="isagree_position" data-bs-target="#isagree_removal_choose">Согласен ли на рабочую
                                         должность</label>
                                 </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="isagree_removal">
-                                    <label class="form-check-label" for="isagree_removal">Согласен ли на переезд</label>
+                                <div class="form-check" id="isagree_removal_choose">
+                                    <input class="form-check-input" type="checkbox"  onchange="this.value = +this.checked" data-bs-target="#isagree_removal_choose" >
+                                    <label class="form-check-label" for="isagree_removal" data-bs-target="#isagree_removal_choose">Согласен ли на переезд</label>
                                 </div>
                             </div>
                         </div>

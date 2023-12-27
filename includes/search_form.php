@@ -4,45 +4,79 @@ $cfg = AppConfig::getInstance();
 $conn = $cfg->connection;
 if (isset($_POST['data'])) {
     $data = $_POST['data'];
+    $limit = " LIMIT 100 ";
+    //$page = $_POST['page_number'] * $limit;
+
 
     $result = Selection($data);
 
-    $query = "SELECT * FROM show_main_info WHERE $result LIMIT 100";
+    $tough_query = "SELECT * FROM search_info WHERE $result";
 
-    //echo $query;
+    echo $tough_query;
     if (strlen($result) <= 0) {
         echo "<p style='color:red'>Не задано критериев поиска.</p>";
         return;
     }
-    $info = $conn->query($query)->fetchAll();
+    else{
+        //TODO: Include there the line with "Производится прямая выборка" or smth
+    }
+
+    $info = $conn->query($tough_query.$limit)->fetchAll();
     if (count($info) <= 0) {
-        echo "<p style='color:red'>Пользователь не найден...</p>";
+        echo "<p style='color:red'>Прямых совпадений не найдено...</p>";
     } else {
         foreach ($info as $value) {
             echo "<div class='container-fluid'>
                 <div class='row'>
-                    <a class='form-control text-decoration-none mt-2 ms-1 shadow' href='showprofile.php?id={$value['id']}'>" . $value['fio'] . "
+                    <div class='form-control text-decoration-none mt-2 ms-1 shadow' >
+                    <a href='showprofile.php?id={$value['id']}'>" . $value['fio'] . "</a>
                         <span class='float-end ps-2'><img src='../../assets/img/pencil-square.svg' width='20' height='20' alt=''></span>
                         <span class='float-end'><img src='../../assets/img/printer.svg' width='20' height='20' alt=''></span>
-                    </a>  
+                        <span class='float-end' style='margin-right: 50px; fill: #ed6866'>Полное совпадение <img src='../../assets/img/fullfinded.svg' width='20' height='20' alt=''></span>
+                    </div>  
                 </div>
             </div>";
         }
     }
 
-}
+    $result = Selection($data, false);
+    $soft_query = "SELECT * FROM search_info WHERE $result"
+        ." EXCEPT "
+        .$tough_query;
 
-function AddFounded()
-{
+    echo $soft_query;
 
+    $info = $conn->query($soft_query.$limit)->fetchAll();
+    if (count($info) <= 0) {
+        echo "<p style='color:red'>Мягкая выборка ничего не нашла...</p>";
+    } else {
+        foreach ($info as $value) {
+            echo "<div class='container-fluid'>
+                <div class='row'>
+                    <div class='form-control text-decoration-none mt-2 ms-1 shadow' >
+                    <a href='showprofile.php?id={$value['id']}'>" . $value['fio'] . "</a>
+                        <span class='float-end ps-2'><img src='../../assets/img/pencil-square.svg' width='20' height='20' alt=''></span>
+                        <span class='float-end'><img src='../../assets/img/printer.svg' width='20' height='20' alt=''></span>
+                        
+                            <span class='float-end' style='margin-right: 50px; fill: #ed6866; cursor:pointer;' onclick='alert(123);'>
+                            Частичное совпадние 
+                            <img src='../../assets/img/halffinded.svg' width='20' height='20' alt='' title='Раскрыть список'>
+                            </span>
+                        </div>
+                        
+                    </div>  
+                </div>
+            </div>";
+        }
+    }
 }
 
 //soft??
-function Selection(array $arr, bool $isTough = false): string
+function Selection(array $arr, bool $isTough = true): string
 {
     $where = [];
 
-    foreach ($_POST['data'] as $id => $value) {
+    foreach ($arr as $id => $value) {
         $_pos = strrpos($id, "_");
         $type = substr($id, $_pos + 1);
         $real_id = substr($id, 0, $_pos);
@@ -51,11 +85,14 @@ function Selection(array $arr, bool $isTough = false): string
             switch ($type) {
                 case "input":
                 {
-                    $btw = "LIKE";
-                    if ($isTough)
-                        $btw = "=";
+                    $btw = "=";
+                    if (!$isTough)
+                    {
+                        $btw = "LIKE";
+                        $value .='%';
+                    }
 
-                    $where [] = "$real_id $btw '$value%'";
+                    $where [] = "$real_id $btw '$value'";
                     break;
                 }
                 case "date":
@@ -68,6 +105,7 @@ function Selection(array $arr, bool $isTough = false): string
                     break;
                 }
                 case "id":
+                case "choose":
                 {
                     $where [] = "$real_id = $value";
                     break;

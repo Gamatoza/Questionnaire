@@ -23,7 +23,7 @@ $data = $query->fetch();
           integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="../../assets/css/style.css">
     <script type="text/javascript" src="../../node_modules/jquery/dist/jquery.min.js"></script>
-    <script type="text/javascript" src="../../assets/js/elements_scripts.js"></script>
+    <script type="text/javascript" src="../../assets/js/elements-scripts.js"></script>
     <title>Опросник</title>
     <!--<script type="text/javascript" src="../../assets/js/main_script.js"></script>-->
     <!--TODO: Подумать как можно будет переделать isdis, ибо убирается значение-->
