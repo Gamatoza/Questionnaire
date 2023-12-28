@@ -23,12 +23,20 @@ if (isset($_POST['data'])) {
         foreach ($prep as $type => $val_array) {
             foreach ($val_array as $key => $value) {
                 if (isset($info[$key])) {
-                    if ($type == "id") {
+                    if ($type == "id" or $type == "choose") {
+                        if(!str_contains($info[$key],$value))
+                            continue;
                         $_pos = strrpos($key, "_");
                         $key = substr($key, 0, $_pos);
                     } else if ($type == "data") {
-
+                        continue;
                     }
+                    else {
+                        if(!str_contains($info[$key],$value))
+                            continue;
+                    }
+
+
 
                     echo "<div>$info[$key]</div>"; //$real_id
                 }

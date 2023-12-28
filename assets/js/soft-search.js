@@ -1,5 +1,4 @@
 let _data = {};
-
 function getinfo() {
     _data = setdata();
     _data['fio_input'] = $("#search").val();
@@ -50,7 +49,7 @@ function softSearch(_id) {
         url: '../../includes/soft_search.php',
         method: 'POST',
         cache: false,
-        data: {data: _data, id: _id},
+        data: {data: setdata(), id: _id}, //if not working do with global _data
         success: function (data) {
             $('#modal-body').html(data);
         }

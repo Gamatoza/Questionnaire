@@ -220,16 +220,12 @@ if (!isset($_SESSION['uid']) or $_SESSION['uid'] == -1)
                                     </label>
                                     <div class="collapse row" id="birthday_date">
                                         <div class="col-lg-3">
-                                            <label class="form-check-label" for="birthday_date_day">День</label>
-                                            <input type="text" name="day" class="form-control">
+                                            <label class="form-check-label" >От</label>
+                                            <input type="date" name="from" class="form-control" required>
                                         </div>
                                         <div class="col-lg-3">
-                                            <label class="form-check-label" for="birthday_date_month">Месяц</label>
-                                            <input type="text" name="month" class="form-control">
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <label class="form-check-label" for="birthday_date_year">Год</label>
-                                            <input type="text" name="year" class="form-control">
+                                            <label class="form-check-label" >До</label>
+                                            <input type="date" name="to" class="form-control" required>
                                         </div>
                                     </div>
                                 </div>
@@ -335,16 +331,12 @@ if (!isset($_SESSION['uid']) or $_SESSION['uid'] == -1)
                                            data-bs-target="#admission_date">Дата приема/увольнения</label>
                                     <div class="collapse row" id="admission_date">
                                         <div class="col-lg-3">
-                                            <label class="form-check-label" for="admission_date_day">День</label>
-                                            <input type="text" name="day" class="form-control">
+                                            <label class="form-check-label" >От</label>
+                                            <input type="date" name="from" class="form-control" required>
                                         </div>
                                         <div class="col-lg-3">
-                                            <label class="form-check-label" for="admission_date_month">Месяц</label>
-                                            <input type="text" name="month" class="form-control">
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <label class="form-check-label" for="admission_date_year">Год</label>
-                                            <input type="text" name="year" class="form-control">
+                                            <label class="form-check-label" >До</label>
+                                            <input type="date" name="to" class="form-control" required>
                                         </div>
                                     </div>
                                 </div>
@@ -356,16 +348,12 @@ if (!isset($_SESSION['uid']) or $_SESSION['uid'] == -1)
                                     </label>
                                     <div class="collapse row" id="dismissal_date">
                                         <div class="col-lg-3">
-                                            <label class="form-check-label" for="dismissal_date_day">День</label>
-                                            <input type="text" name="day" class="form-control">
+                                            <label class="form-check-label" >От</label>
+                                            <input type="date" name="from" class="form-control" required>
                                         </div>
                                         <div class="col-lg-3">
-                                            <label class="form-check-label" for="dismissal_date_month">Месяц</label>
-                                            <input type="text" name="month" class="form-control">
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <label class="form-check-label" for="dismissal_date_year">Год</label>
-                                            <input type="text" name="year" class="form-control">
+                                            <label class="form-check-label" >До</label>
+                                            <input type="date" name="to" class="form-control" required>
                                         </div>
                                     </div>
                                 </div>

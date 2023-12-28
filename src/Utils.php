@@ -120,71 +120,107 @@ class Utils
         return $result;
     }
 
-    public static function SearchExecute(PDO $conn, string $select, array $arr, bool $isTough = true, int $from = 0, int $limit = 100): PDOStatement
+    public static function PrepareCondition(PDO $conn, string $query, array $arr): PDOStatement
+    {
+        $stmt = $conn->prepare($query);
+        foreach ($arr as $key => $value)
+        {
+            $stmt->bindParam($key,$value);
+        }
+        return $stmt;
+    }
+
+    public static function CreateSelectionCondition(array $arr, array &$prepare_values, bool $isTough = true): string
     {
         $where = [];
-        $i = 0;
-        $prepare_values = [];
 
         foreach ($arr as $type => $val_array) {
-            switch ($type) {
-                case "input":
-                {
-                    foreach ($val_array as $key => $value) {
-
+            foreach ($val_array as $key => $value) {
+                $pv_key = ($isTough?"t_":"s_").$key.'_'.$type;
+                switch ($type) {
+                    case "input":
+                    {
                         $btw = "=";
                         if (!$isTough) {
                             $btw = "LIKE";
                             $value .= '%';
                         }
-
-                        $where [] = "$key $btw :_$i";
-                        $prepare_values["_$i"] = $value;
-                        $i++;
+                        $where [] = "$key $btw :".$pv_key;
+                        $prepare_values[$pv_key] = $value;
+                        break;
                     }
-                    break;
-                }
-                case "date":
-                {
-                    foreach ($val_array as $key => $value) {
-                        foreach ($value as $date_period => $date_number) {
-                            if ($date_number !== '') {
-                                $where [] = strtoupper($date_period) . "($key) = :_$i";
-                                $prepare_values["_$i"] = $date_number;
-                                $i++;
-                            }
+                    case "date":
+                    {
+                        if(isset($value['from']))
+                        {
+                            $where [] = "DATE($key) > :".$pv_key."_from";
+                            $prepare_values[$pv_key."_from"] = $value['from'];
                         }
+                        if(isset($value['to']))
+                        {
+                            $where [] = "DATE($key) < ".$pv_key."_to";
+                            $prepare_values[$pv_key."_to"] = $value['to'];
+                        }
+
+                        break;
                     }
-                    break;
-                }
-                case "id":
-                case "choose":
-                {
-                    foreach ($val_array as $key => $value) {
-                        $where [] = "$key = :_$i";
-                        $prepare_values["_$i"] = $value;
-                        $i++;
+                    case "id":
+                    case "choose":
+                    {
+                        $where [] = "$key = :".$pv_key;
+                        $prepare_values[$pv_key] = $value;
+                        break;
                     }
-                    break;
                 }
+
+
             }
         }
 
-        $result_query = $select." WHERE ".implode($isTough ? " AND " : " OR ", $where);
-        if($from > 0)
-        {
-            $result_query.=" AND id >= ".$from; //???? TODO: what's id, mb set that
-        }
-        if($limit > 0)
-        {
-            $result_query.= " LIMIT ".$limit;
-        }
-
-        echo $result_query;
-
-        $stmt = $conn->prepare($result_query);
-        $stmt->execute($prepare_values);
-        return $stmt;
+        return implode($isTough ? " AND " : " OR ", $where);
     }
 
+    public static function interpolateQuery($query, $params): string
+    {
+        $keys = array();
+        $values = $params;
+
+        # build a regular expression for each parameter
+        foreach ($params as $key => $value) {
+            if (is_string($key)) {
+                $keys[] = '/:'.$key.'/';
+            } else {
+                $keys[] = '/[?]/';
+            }
+
+            if (is_string($value))
+                $values[$key] = "'" . $value . "'";
+
+            if (is_array($value))
+                $values[$key] = "'" . implode("','", $value) . "'";
+
+            if (is_null($value))
+                $values[$key] = 'NULL';
+        }
+
+        $query = preg_replace($keys, $values, $query);
+
+        return $query;
+    }
+
+    public static function isArrayEmpty(array $arr):bool
+    {
+        if(count($arr) <= 0)
+        {
+            return true;
+        }
+
+        foreach ($arr as $value)
+        {
+            if(empty($value))
+               return true;
+        }
+
+        return false;
+    }
 }

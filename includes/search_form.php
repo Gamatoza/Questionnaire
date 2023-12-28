@@ -8,25 +8,34 @@ $conn = $cfg->connection;
 
 if (isset($_POST['data'])) {
     $data = $_POST['data'];
+    $limit = " LIMIT 100";
+    $prep_arr = [];
     //$page = $_POST['page_number'] * $limit;
 
-
-    $arr = Utils::typeSplit($data);
-
-    $stmt = Utils::SearchExecute($conn,"SELECT * FROM search_info",$arr);
-
-    if (count($data) <= 0) {
+    if (Utils::isArrayEmpty($data)) {
         echo "<p style='color:red'>Не задано критериев поиска.</p>";
         return;
     } else {
         //TODO: Include there the line with "Производится прямая выборка..." or smth
     }
 
-    $info = $stmt->fetchAll();
-    if (count($info) <= 0) {
+    $arr = Utils::typeSplit($data);
+   /* echo "</br>---------------arr---------------</br>";
+
+    echo "<pre>" . print_r($arr, true) . "</pre>";*/
+
+    $tough_where = Utils::CreateSelectionCondition($arr,$prep_arr);
+    $tough_select = "SELECT * FROM search_info WHERE ";
+    $stmt = Utils::PrepareCondition($conn,$tough_select.$tough_where.$limit,$prep_arr);
+    $stmt->execute();
+    $tough_info = $stmt->fetchAll();
+
+    echo $stmt->queryString;
+
+    if (count($tough_info) <= 0) {
         echo "<p style='color:red'>Прямых совпадений не найдено...</p>";
     } else {
-        foreach ($info as $value) {
+        foreach ($tough_info as $value) {
             echo "<div class='container-fluid'>
                 <div class='row'>
                     <div class='form-control text-decoration-none mt-2 ms-1 shadow' >
@@ -40,15 +49,18 @@ if (isset($_POST['data'])) {
         }
     }
 
-    $arr = Utils::typeSplit($data);
+    $soft_where = Utils::CreateSelectionCondition($arr,$prep_arr,false);
+    $soft_select = "SELECT * FROM search_info WHERE ";
+    $stmt = Utils::PrepareCondition($conn,$soft_select.$soft_where." EXCEPT ".$tough_select.$tough_where.$limit,$prep_arr);
+    $stmt->execute();
+    $soft_info = $stmt->fetchAll();
 
-    $stmt = Utils::SearchExecute($conn,"SELECT * FROM search_info",$arr,false);
+    echo $stmt->queryString;
 
-    $info = $stmt->fetchAll();
-    if (count($info) <= 0) {
+    if (count($soft_info) <= 0) {
         echo "<p style='color:red'>Мягкая выборка ничего не нашла...</p>";
     } else {
-        foreach ($info as $value) {
+        foreach ($soft_info as $value) {
             echo "<div class='container-fluid'>
                 <div class='row'>
                     <div class='form-control text-decoration-none mt-2 ms-1 shadow' >
