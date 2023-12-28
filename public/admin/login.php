@@ -23,7 +23,7 @@ $users = $conn->query("SELECT * FROM questionnaire.users;");
     <form id="form" method="post" action="../../includes/login_form_handler.php" name="test-form">
         <h1 class="h3 mb-3 fw-normal text-center">Please sign in</h1>
         <div class="form-floating">
-            <input type="text" name="username" class="form-control" id="floatingInput" placeholder="Login" required>
+            <input type="text" name="username" class="form-control" id="floatingInput" placeholder="Login" autocomplete="off" required>
             <label for="floatingInput">Login</label>
         </div>
         <div class="form-floating">
