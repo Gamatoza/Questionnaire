@@ -3,6 +3,7 @@ require_once '../vendor/autoload.php';
 $cfg = AppConfig::getInstance();
 $conn = $cfg->connection;
 
+//file_put_contents('post.log',serialize($_POST));
 //$_POST = unserialize(file_get_contents('post.log'));
 
 if (isset($_POST['data'])) {
@@ -71,4 +72,4 @@ echo "</br>---------------POST---------------</br>";
 
 echo "<pre>" . print_r($_POST, true) . "</pre>";
 
-file_put_contents('post.log',serialize($_POST));
+

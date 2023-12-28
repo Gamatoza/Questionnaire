@@ -16,7 +16,6 @@ class DBConfig
     public static function getDBInstance(): PDO
     {
         if (!isset($conn)) {
-
             try {
                 $conn = new PDO("mysql:host=" . self::$host . ";dbname=" . self::$database, self::$user, self::$password, self::$options);
                 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

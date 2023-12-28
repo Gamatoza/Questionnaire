@@ -150,7 +150,7 @@ class Utils
                         foreach ($value as $date_period => $date_number) {
                             if ($date_number !== '') {
                                 $where [] = strtoupper($date_period) . "($key) = :_$i";
-                                $prepare_values["_$i"] = $value;
+                                $prepare_values["_$i"] = $date_number;
                                 $i++;
                             }
                         }
@@ -185,51 +185,6 @@ class Utils
         $stmt = $conn->prepare($result_query);
         $stmt->execute($prepare_values);
         return $stmt;
-    }
-
-    public static function SearchSelection(array $arr, bool $isTough = true): string
-    {
-        $where = [];
-
-        foreach ($arr as $type => $val_array) {
-            switch ($type) {
-                case "input":
-                {
-                    foreach ($val_array as $key => $value) {
-
-                        $btw = "=";
-                        if (!$isTough) {
-                            $btw = "LIKE";
-                            $value .= '%';
-                        }
-
-                        $where [] = "$key $btw '$value'";
-                    }
-                    break;
-                }
-                case "date":
-                {
-                    foreach ($val_array as $key => $value) {
-                        foreach ($value as $date_period => $date_number) {
-                            if ($date_number !== '') {
-                                $where [] = strtoupper($date_period) . "($key) = $date_number";
-                            }
-                        }
-                    }
-                    break;
-                }
-                case "id":
-                case "choose":
-                {
-                    foreach ($val_array as $key => $value) {
-                        $where [] = "$key = $value";
-                    }
-                    break;
-                }
-            }
-        }
-
-        return implode($isTough ? " AND " : " OR ", $where);
     }
 
 }

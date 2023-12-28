@@ -7,28 +7,32 @@ if (isset($_POST['data'])) {
     $data = $_POST['data'];
     $id = $_POST['id'];
 
-    $stmt = $conn->prepare("select * from show_main_info where id = :id");
-    $stmt->bindValue("id",$id);
+    $stmt = $conn->prepare("select * from search_info where id = :id");
+    $stmt->bindValue("id", $id);
     $stmt->execute();
 
     $info = $stmt->fetch();
     if (count($info) <= 0) {
         echo "<p style='color:red'>Прямых совпадений не найдено...</p>";
-    }
-    else{
-        //echo "<pre>".print_r($data, true)."</pre>";
-        foreach ($data as $key => $param) {
-            $_pos = strrpos($key, "_");
-            $real_id = substr($key, 0, $_pos);
+    } else {
+        $prep = Utils::typeSplit($data);
+        echo "</br>---------------Prep---------------</br>";
+        echo "<pre>" . print_r($prep, true) . "</pre>";
+        echo "</br>---------------Info---------------</br>";
+        echo "<pre>" . print_r($info, true) . "</pre>";
+        foreach ($prep as $type => $val_array) {
+            foreach ($val_array as $key => $value) {
+                if (isset($info[$key])) {
+                    if ($type == "id") {
+                        $_pos = strrpos($key, "_");
+                        $key = substr($key, 0, $_pos);
+                    } else if ($type == "data") {
 
-            /*echo $real_id."<br>";
-            echo $param."<br>";
-            echo "-------"."<br>";*/
+                    }
 
-            if(isset($info[$real_id])){
-                echo "<div>$info[$real_id]</div>"; //$real_id =
+                    echo "<div>$info[$key]</div>"; //$real_id
+                }
             }
-
             //TODO: stylize all id's to russian normal equal, output like education = 'Образование'
 
         }
