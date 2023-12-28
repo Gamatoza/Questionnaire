@@ -85,4 +85,151 @@ class Utils
             trigger_error('Could not connect to MySQL database. ' . $pe->getMessage(), E_USER_ERROR);
         }
     }
+
+    public static function typeSplit(array $arr): array
+    {
+        $result = [];
+
+        foreach ($arr as $id => $value) {
+            $_pos = strrpos($id, "_");
+            $type = substr($id, $_pos + 1);
+            $real_id = substr($id, 0, $_pos);
+
+            if ($value !== '') {
+                switch ($type) {
+                    case "date":
+                    {
+                        foreach ($value as $date_period => $date_number) {
+                            if ($date_number !== '') {
+                                $result ["date"][$real_id][$date_period] = $date_number;
+                            }
+                        }
+                        break;
+                    }
+                    case "id":
+                    case "choose":
+                    case "input":
+                    {
+                        $result [$type][$real_id] = $value;
+                        break;
+                    }
+                }
+            }
+        }
+
+        return $result;
+    }
+
+    public static function SearchExecute(PDO $conn, string $select, array $arr, bool $isTough = true, int $from = 0, int $limit = 100): PDOStatement
+    {
+        $where = [];
+        $i = 0;
+        $prepare_values = [];
+
+        foreach ($arr as $type => $val_array) {
+            switch ($type) {
+                case "input":
+                {
+                    foreach ($val_array as $key => $value) {
+
+                        $btw = "=";
+                        if (!$isTough) {
+                            $btw = "LIKE";
+                            $value .= '%';
+                        }
+
+                        $where [] = "$key $btw :_$i";
+                        $prepare_values["_$i"] = $value;
+                        $i++;
+                    }
+                    break;
+                }
+                case "date":
+                {
+                    foreach ($val_array as $key => $value) {
+                        foreach ($value as $date_period => $date_number) {
+                            if ($date_number !== '') {
+                                $where [] = strtoupper($date_period) . "($key) = :_$i";
+                                $prepare_values["_$i"] = $value;
+                                $i++;
+                            }
+                        }
+                    }
+                    break;
+                }
+                case "id":
+                case "choose":
+                {
+                    foreach ($val_array as $key => $value) {
+                        $where [] = "$key = :_$i";
+                        $prepare_values["_$i"] = $value;
+                        $i++;
+                    }
+                    break;
+                }
+            }
+        }
+
+        $result_query = $select." WHERE ".implode($isTough ? " AND " : " OR ", $where);
+        if($from > 0)
+        {
+            $result_query.=" AND id >= ".$from; //???? TODO: what's id, mb set that
+        }
+        if($limit > 0)
+        {
+            $result_query.= " LIMIT ".$limit;
+        }
+
+        echo $result_query;
+
+        $stmt = $conn->prepare($result_query);
+        $stmt->execute($prepare_values);
+        return $stmt;
+    }
+
+    public static function SearchSelection(array $arr, bool $isTough = true): string
+    {
+        $where = [];
+
+        foreach ($arr as $type => $val_array) {
+            switch ($type) {
+                case "input":
+                {
+                    foreach ($val_array as $key => $value) {
+
+                        $btw = "=";
+                        if (!$isTough) {
+                            $btw = "LIKE";
+                            $value .= '%';
+                        }
+
+                        $where [] = "$key $btw '$value'";
+                    }
+                    break;
+                }
+                case "date":
+                {
+                    foreach ($val_array as $key => $value) {
+                        foreach ($value as $date_period => $date_number) {
+                            if ($date_number !== '') {
+                                $where [] = strtoupper($date_period) . "($key) = $date_number";
+                            }
+                        }
+                    }
+                    break;
+                }
+                case "id":
+                case "choose":
+                {
+                    foreach ($val_array as $key => $value) {
+                        $where [] = "$key = $value";
+                    }
+                    break;
+                }
+            }
+        }
+
+        return implode($isTough ? " AND " : " OR ", $where);
+    }
+
 }

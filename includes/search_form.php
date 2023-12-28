@@ -2,26 +2,26 @@
 require_once '../vendor/autoload.php';
 $cfg = AppConfig::getInstance();
 $conn = $cfg->connection;
+
+//$_POST = unserialize(file_get_contents('post.log'));
+
 if (isset($_POST['data'])) {
     $data = $_POST['data'];
-    $limit = " LIMIT 100 ";
     //$page = $_POST['page_number'] * $limit;
 
 
-    $result = Selection($data);
+    $arr = Utils::typeSplit($data);
 
-    $tough_query = "SELECT * FROM search_info WHERE $result";
+    $stmt = Utils::SearchExecute($conn,"SELECT * FROM search_info",$arr);
 
-    echo $tough_query;
-    if (strlen($result) <= 0) {
+    if (count($data) <= 0) {
         echo "<p style='color:red'>Не задано критериев поиска.</p>";
         return;
-    }
-    else{
-        //TODO: Include there the line with "Производится прямая выборка" or smth
+    } else {
+        //TODO: Include there the line with "Производится прямая выборка..." or smth
     }
 
-    $info = $conn->query($tough_query.$limit)->fetchAll();
+    $info = $stmt->fetchAll();
     if (count($info) <= 0) {
         echo "<p style='color:red'>Прямых совпадений не найдено...</p>";
     } else {
@@ -39,14 +39,11 @@ if (isset($_POST['data'])) {
         }
     }
 
-    $result = Selection($data, false);
-    $soft_query = "SELECT * FROM search_info WHERE $result"
-        ." EXCEPT "
-        .$tough_query;
+    $arr = Utils::typeSplit($data);
 
-    echo $soft_query;
+    $stmt = Utils::SearchExecute($conn,"SELECT * FROM search_info",$arr,false);
 
-    $info = $conn->query($soft_query.$limit)->fetchAll();
+    $info = $stmt->fetchAll();
     if (count($info) <= 0) {
         echo "<p style='color:red'>Мягкая выборка ничего не нашла...</p>";
     } else {
@@ -70,51 +67,8 @@ if (isset($_POST['data'])) {
     }
 }
 
-//soft??
-function Selection(array $arr, bool $isTough = true): string
-{
-    $where = [];
-
-    foreach ($arr as $id => $value) {
-        $_pos = strrpos($id, "_");
-        $type = substr($id, $_pos + 1);
-        $real_id = substr($id, 0, $_pos);
-
-        if ($value !== '') {
-            switch ($type) {
-                case "input":
-                {
-                    $btw = "=";
-                    if (!$isTough)
-                    {
-                        $btw = "LIKE";
-                        $value .='%';
-                    }
-
-                    $where [] = "$real_id $btw '$value'";
-                    break;
-                }
-                case "date":
-                {
-                    foreach ($value as $date_period => $date_number) {
-                        if ($date_number !== '') {
-                            $where [] = strtoupper($date_period) . "($real_id) = $date_number";
-                        }
-                    }
-                    break;
-                }
-                case "id":
-                case "choose":
-                {
-                    $where [] = "$real_id = $value";
-                    break;
-                }
-            }
-        }
-    }
-
-    return implode($isTough ? " AND " : " OR ", $where);
-}
-
+echo "</br>---------------POST---------------</br>";
 
 echo "<pre>" . print_r($_POST, true) . "</pre>";
+
+file_put_contents('post.log',serialize($_POST));
