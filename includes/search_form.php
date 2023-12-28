@@ -49,13 +49,28 @@ if (isset($_POST['data'])) {
         }
     }
 
+    $prep_arr = [];
     $soft_where = Utils::CreateSelectionCondition($arr,$prep_arr,false);
     $soft_select = "SELECT * FROM search_info WHERE ";
-    $stmt = Utils::PrepareCondition($conn,$soft_select.$soft_where." EXCEPT ".$tough_select.$tough_where.$limit,$prep_arr);
+
+    //all id's
+    $ids = [];
+    foreach ($tough_info as $row)
+    {
+        $ids []= $row['id'];
+    }
+    $soft_query = $soft_select.$soft_where;
+    if(count($ids) > 0)
+        $soft_query.=" AND id not in(".implode(' , ',$ids).")";
+    $soft_query.=$limit;
+    //$stmt = Utils::PrepareCondition($conn,$soft_select.$soft_where." EXCEPT ".$tough_select.$tough_where.$limit,$prep_arr);
+    $stmt = Utils::PrepareCondition($conn,$soft_query,$prep_arr);
+
+    echo $stmt->queryString;
+
     $stmt->execute();
     $soft_info = $stmt->fetchAll();
 
-    echo $stmt->queryString;
 
     if (count($soft_info) <= 0) {
         echo "<p style='color:red'>Мягкая выборка ничего не нашла...</p>";
