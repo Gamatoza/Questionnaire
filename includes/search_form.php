@@ -30,7 +30,7 @@ if (isset($_POST['data'])) {
     $stmt->execute();
     $tough_info = $stmt->fetchAll();
 
-    echo $stmt->queryString;
+    //echo $stmt->queryString;
 
     if (count($tough_info) <= 0) {
         echo "<p style='color:red'>Прямых совпадений не найдено...</p>";
@@ -66,7 +66,7 @@ if (isset($_POST['data'])) {
     $soft_stmt = Utils::PrepareCondition($conn,$soft_select.$soft_where." EXCEPT ".$tough_select.$tough_where.$limit,$prep_arr);
     //$soft_stmt = Utils::PrepareCondition($conn,$soft_query,$prep_arr);
     $soft_stmt->execute();
-    echo $soft_stmt->queryString;
+    //echo $soft_stmt->queryString;
 
     $soft_info = $soft_stmt->fetchAll();
    /* $soft_info = [];
@@ -105,6 +105,6 @@ if (isset($_POST['data'])) {
     }
 }
 
-echo "</br>---------------POST---------------</br>";
+/*echo "</br>---------------POST---------------</br>";
 
-echo "<pre>" . print_r($_POST, true) . "</pre>";
+echo "<pre>" . print_r($_POST, true) . "</pre>";*/

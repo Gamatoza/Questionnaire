@@ -19,10 +19,10 @@ if (isset($_POST['data'])) {
         echo "<p style='color:red'>Прямых совпадений не найдено...</p>";
     } else {
         $prep = Utils::typeSplit($data);
-        echo "</br>---------------Prep---------------</br>";
+        /*echo "</br>---------------Prep---------------</br>";
         echo "<pre>" . print_r($prep, true) . "</pre>";
         echo "</br>---------------Info---------------</br>";
-        echo "<pre>" . print_r($info, true) . "</pre>";
+        echo "<pre>" . print_r($info, true) . "</pre>";*/
         foreach ($prep as $type => $val_array) {
             foreach ($val_array as $key => $value) {
                 if (isset($info[$key])) {
