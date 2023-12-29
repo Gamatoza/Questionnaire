@@ -8,7 +8,7 @@ $conn = $cfg->connection;
 
 if (isset($_POST['data'])) {
     $data = $_POST['data'];
-    $limit = " LIMIT 100";
+    $limit = " LIMIT 25";
     $prep_arr = [];
     //$page = $_POST['page_number'] * $limit;
 
@@ -49,7 +49,7 @@ if (isset($_POST['data'])) {
         }
     }
 
-    $prep_arr = [];
+    //$prep_arr = [];
     $soft_where = Utils::CreateSelectionCondition($arr,$prep_arr,false);
     $soft_select = "SELECT * FROM search_info WHERE ";
 
@@ -60,16 +60,26 @@ if (isset($_POST['data'])) {
         $ids []= $row['id'];
     }
     $soft_query = $soft_select.$soft_where;
-    if(count($ids) > 0)
-        $soft_query.=" AND id not in(".implode(' , ',$ids).")";
+    /*if(count($ids) > 0)
+        $soft_query.=" AND id not in(".implode(' , ',$ids).")";*/
     $soft_query.=$limit;
-    //$stmt = Utils::PrepareCondition($conn,$soft_select.$soft_where." EXCEPT ".$tough_select.$tough_where.$limit,$prep_arr);
-    $stmt = Utils::PrepareCondition($conn,$soft_query,$prep_arr);
+    $soft_stmt = Utils::PrepareCondition($conn,$soft_select.$soft_where." EXCEPT ".$tough_select.$tough_where.$limit,$prep_arr);
+    //$soft_stmt = Utils::PrepareCondition($conn,$soft_query,$prep_arr);
+    $soft_stmt->execute();
+    echo $soft_stmt->queryString;
 
-    echo $stmt->queryString;
+    $soft_info = $soft_stmt->fetchAll();
+   /* $soft_info = [];
+    $preg = $soft_stmt->fetchAll();
+    foreach ($preg as $row)
+    {
+        if(!in_array($row['id'],$ids))
+        {
+            $soft_info [] = $row;
+        }
+    }*/
 
-    $stmt->execute();
-    $soft_info = $stmt->fetchAll();
+
 
 
     if (count($soft_info) <= 0) {
@@ -98,5 +108,3 @@ if (isset($_POST['data'])) {
 echo "</br>---------------POST---------------</br>";
 
 echo "<pre>" . print_r($_POST, true) . "</pre>";
-
-

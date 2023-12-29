@@ -125,7 +125,7 @@ class Utils
         $stmt = $conn->prepare($query);
         foreach ($arr as $key => $value)
         {
-            $stmt->bindParam($key,$value);
+            $stmt->bindValue($key,$value);
         }
         return $stmt;
     }
@@ -217,10 +217,10 @@ class Utils
 
         foreach ($arr as $value)
         {
-            if(empty($value))
-               return true;
+            if(!empty($value))
+               return false;
         }
 
-        return false;
+        return true;
     }
 }

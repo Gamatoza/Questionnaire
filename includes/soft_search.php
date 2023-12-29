@@ -3,6 +3,9 @@ require_once '../vendor/autoload.php';
 $cfg = AppConfig::getInstance();
 $conn = $cfg->connection;
 
+//file_put_contents('post.log',serialize($_POST));
+//$_POST = unserialize(file_get_contents('post.log'));
+
 if (isset($_POST['data'])) {
     $data = $_POST['data'];
     $id = $_POST['id'];

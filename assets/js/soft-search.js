@@ -1,7 +1,6 @@
 let _data = {};
 function getinfo() {
     _data = setdata();
-    _data['fio_input'] = $("#search").val();
     if (Object.keys(_data).length) {
         $.ajax({
             url: '../../includes/search_form.php',
@@ -19,7 +18,9 @@ function getinfo() {
 }
 
 function setdata() {
+
     var all_data = {};
+    all_data['fio_input'] = $("#search").val();
     $('input.form-check-input[data-bs-target]').each(function () {
         if ($(this).is(':checked')) {
             var name = $(this).attr("data-bs-target").replace('#', '');
