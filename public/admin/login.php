@@ -3,9 +3,10 @@ require_once '../../vendor/autoload.php';
 $cfg = AppConfig::getInstance();
 $conn = $cfg->connection;
 
+//if (isset($_SESSION['uid']))
+//    header("location: index.php");
 
-if (isset($_SESSION['uid']))
-    header("location: index.php");
+
 $users = $conn->query("SELECT * FROM questionnaire.users;");
 ?>
 <!DOCTYPE html>
@@ -14,9 +15,10 @@ $users = $conn->query("SELECT * FROM questionnaire.users;");
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Login Form</title>
-    <link rel="stylesheet" href="../../assets/css/loginstyle.css">
     <link rel="stylesheet" href='../../node_modules/bootstrap/dist/css/bootstrap.min.css'
           integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="../../assets/css/login-style.css">
+
 </head>
 <body class="d-flex align-items-center py-4 bg-body-tertiary">
 <main class="form-signin w-100 m-auto">
