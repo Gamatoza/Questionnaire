@@ -13,9 +13,9 @@ $cfg = AppConfig::getInstance();
     <link rel="stylesheet" href='../node_modules/bootstrap/dist/css/bootstrap.min.css' integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="../assets/css/style.css">
     <script type="text/javascript" src="../node_modules/jquery/dist/jquery.min.js"></script>
-    <script type="text/javascript" src="../assets/js/elements_scripts.js"></script>
+    <script type="text/javascript" src="../assets/js/elements-scripts.js"></script>
     <title>Опросник</title>
-    <script type="text/javascript" src="../assets/js/cachepage_script.js"></script>
+    <script type="text/javascript" src="../assets/js/cachepage-script.js"></script>
 </head>
 <script>
     IsDisClicked = sessionStorage.getItem("isDis") === "true";
@@ -82,7 +82,7 @@ $cfg = AppConfig::getInstance();
             <div class="col-lg-5 col-md-5 col-sm-12 border-end"><b>Адрес места жительства</b></div>
             <div class="col-lg-7 col-md-7 col-sm-12">
                 <div class="input-group">
-                    <input type="text" name="person[address]" class="form-control border-0" required>
+                    <input type="text" name="person[address]" class="form-control border-0" placeholder="Город, Улица, Дом, Квартира (корпус)" required>
                 </div>
             </div>
         </div>

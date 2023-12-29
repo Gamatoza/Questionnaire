@@ -53,6 +53,7 @@ class Utils
     {
         if ($selected_option === '')
             echo "<option selected></option>";
+        else echo "<option></option>";
         $result = AppConfig::getInstance()->connection->query("SELECT * FROM questionnaire." . $from); //TODO обрамить SQLку
         while ($row = $result->fetch()) {
             $name = $row["name"];
@@ -83,5 +84,143 @@ class Utils
         } catch (PDOException $pe) {
             trigger_error('Could not connect to MySQL database. ' . $pe->getMessage(), E_USER_ERROR);
         }
+    }
+
+    public static function typeSplit(array $arr): array
+    {
+        $result = [];
+
+        foreach ($arr as $id => $value) {
+            $_pos = strrpos($id, "_");
+            $type = substr($id, $_pos + 1);
+            $real_id = substr($id, 0, $_pos);
+
+            if ($value !== '') {
+                switch ($type) {
+                    case "date":
+                    {
+                        foreach ($value as $date_period => $date_number) {
+                            if ($date_number !== '') {
+                                $result ["date"][$real_id][$date_period] = $date_number;
+                            }
+                        }
+                        break;
+                    }
+                    case "id":
+                    case "choose":
+                    case "input":
+                    {
+                        $result [$type][$real_id] = $value;
+                        break;
+                    }
+                }
+            }
+        }
+
+        return $result;
+    }
+
+    public static function PrepareCondition(PDO $conn, string $query, array $arr): PDOStatement
+    {
+        $stmt = $conn->prepare($query);
+        foreach ($arr as $key => $value)
+        {
+            $stmt->bindValue($key,$value);
+        }
+        return $stmt;
+    }
+
+    public static function CreateSelectionCondition(array $arr, array &$prepare_values, bool $isTough = true): string
+    {
+        $where = [];
+
+        foreach ($arr as $type => $val_array) {
+            foreach ($val_array as $key => $value) {
+                $pv_key = ($isTough?"t_":"s_").$key.'_'.$type;
+                switch ($type) {
+                    case "input":
+                    {
+                        $btw = "=";
+                        if (!$isTough) {
+                            $btw = "LIKE";
+                            $value .= '%';
+                        }
+                        $where [] = "$key $btw :".$pv_key;
+                        $prepare_values[$pv_key] = $value;
+                        break;
+                    }
+                    case "date":
+                    {
+                        if(isset($value['from']))
+                        {
+                            $where [] = "DATE($key) > :".$pv_key."_from";
+                            $prepare_values[$pv_key."_from"] = $value['from'];
+                        }
+                        if(isset($value['to']))
+                        {
+                            $where [] = "DATE($key) < ".$pv_key."_to";
+                            $prepare_values[$pv_key."_to"] = $value['to'];
+                        }
+
+                        break;
+                    }
+                    case "id":
+                    case "choose":
+                    {
+                        $where [] = "$key = :".$pv_key;
+                        $prepare_values[$pv_key] = $value;
+                        break;
+                    }
+                }
+
+
+            }
+        }
+
+        return implode($isTough ? " AND " : " OR ", $where);
+    }
+
+    public static function interpolateQuery($query, $params): string
+    {
+        $keys = array();
+        $values = $params;
+
+        # build a regular expression for each parameter
+        foreach ($params as $key => $value) {
+            if (is_string($key)) {
+                $keys[] = '/:'.$key.'/';
+            } else {
+                $keys[] = '/[?]/';
+            }
+
+            if (is_string($value))
+                $values[$key] = "'" . $value . "'";
+
+            if (is_array($value))
+                $values[$key] = "'" . implode("','", $value) . "'";
+
+            if (is_null($value))
+                $values[$key] = 'NULL';
+        }
+
+        $query = preg_replace($keys, $values, $query);
+
+        return $query;
+    }
+
+    public static function isArrayEmpty(array $arr):bool
+    {
+        if(count($arr) <= 0)
+        {
+            return true;
+        }
+
+        foreach ($arr as $value)
+        {
+            if(!empty($value))
+               return false;
+        }
+
+        return true;
     }
 }
